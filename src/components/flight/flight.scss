@@ -1,0 +1,37 @@
+.flight-container {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  padding: 22px 20px;
+  text-transform: uppercase;
+  margin: 20px 0;
+
+
+  .airline img{
+      width: 110px;
+      height: 36px;
+  }
+
+  .price {
+    font-size: 24px;
+    color: #2196F3;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .row .col{
+    margin-bottom: 12px;
+  }
+
+  .row .col div{
+    color: #A0B0B9;
+
+    &.information{
+      color: #4A4A4A;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+
+}

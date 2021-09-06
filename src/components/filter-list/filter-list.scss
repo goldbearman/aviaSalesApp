@@ -1,0 +1,61 @@
+.filter-list {
+  background: white;
+  color: #4A4A4A;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  font-family: 'OpenSans', sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 20px 20px 10px 20px;
+    letter-spacing: 0.5px;
+  }
+
+  &__item {
+    padding: 10px 20px;
+
+    &:hover {
+      background: #F1FCFF;
+    }
+  }
+
+  .option {
+    display: block;
+    margin-bottom: 0.25em;
+  }
+
+  .check {
+    font-size: 13px;
+    padding-left: 2.2em;
+
+    &__input {
+      position: absolute;
+      -webkit-appearance: none;
+      appearance: none;
+
+      &:checked + .check__box {
+        background: url("../../pictures/form-checked.svg") no-repeat center;
+      }
+
+      //&:focus + .check__box {
+      //  background: url("../../pictures/form-focus.svg") no-repeat center;
+      //}
+      //
+      //&:checked:focus + .check__box {
+      //  background: url("../../pictures/form-checked-focus.svg") no-repeat center;
+      //}
+    }
+
+    &__box {
+      position: absolute;
+      margin-left: -2.2em;
+      width: 20px;
+      height: 20px;
+      background: url("../../pictures/form.svg") no-repeat center;
+    }
+  }
+}
