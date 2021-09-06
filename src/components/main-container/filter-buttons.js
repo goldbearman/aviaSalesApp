@@ -3,11 +3,21 @@ import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
 import scss from "./main-container.module.scss";
 
-function FilterButtons() {
+import { connect } from "react-redux";
+import * as actions from "../redux/actions";
+
+
+function FilterButtons({checkCheapest}) {
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
 
-  console.log(scss);
+  console.log(radioValue);
+  if (radioValue === '1') {
+    checkCheapest();
+  }
+  if (radioValue === '2') {
+
+  }
 
   const radios = [
     {name: 'САМЫЙ ДЕШОВЫЙ', value: '1'},
@@ -38,4 +48,12 @@ function FilterButtons() {
   );
 }
 
-export default FilterButtons;
+const mapStateToProps = (state) => {
+  return {
+    counter: state
+  };
+};
+
+export default connect(mapStateToProps, actions)(FilterButtons);
+
+// export default FilterButtons;

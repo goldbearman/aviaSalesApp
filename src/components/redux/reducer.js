@@ -1,3 +1,21 @@
+import AviasalesService from "../../services/aviasales-service";
+
+const aviaSalesService = new AviasalesService();
+
+const onErrorRate = () => {
+  return {};
+};
+
+const getTickets = () => {
+ return  aviaSalesService
+    .getResource()
+    .then((arr) => {
+      console.log(arr.tickets);
+      return arr.tickets;
+    })
+    .catch(onErrorRate );
+};
+
 const arrChecked = {
   first: false,
   second: false,
@@ -56,6 +74,10 @@ const reducer = (state = arrChecked, action) => {
 
     case "CLICKFIFTH":
       return Object.assign({}, checkState("fifth", state));
+
+    case "CLICKCHEAPEST":
+      return getTickets();
+
 
     default:
       return state;
