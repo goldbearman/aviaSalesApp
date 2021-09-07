@@ -6,10 +6,11 @@ import * as actions from "../redux/actions";
 const FlightList = ({counter}) => {
 
   const arrMovies = counter.allFilms;
+  console.log(counter);
 
   const createList = () => {
 
-    const elements = arrMovies.splice(0,6).map((ticket) => {
+    const elements = arrMovies.splice(0,5).map((ticket) => {
       console.log(ticket);
       return (
           <Flight item = {ticket}

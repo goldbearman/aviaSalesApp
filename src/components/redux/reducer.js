@@ -60,9 +60,25 @@ const reducer = (state = arrChecked, action) => {
     case "CLICKFIFTH":
       return Object.assign({}, checkState("fifth", state));
 
+    case "INITIALSTATE":
+      // const fiveFilms = action.allFilms.slice(0,6);
+      // console.log(fiveFilms);
+      console.log("INITIALSTATE");
+      return {...state, allFilms: action.allFilms};
+
     case "CLICKCHEAPEST":
       console.log("CLICKCHEAPEST");
-      return {...state, allFilms: action.allFilms};
+      // return {...state, allFilms: action.allFilms};
+      console.log(state);
+      let newState = Object.assign({}, {...state, allFilms: action.allFilms});
+      let t = newState.allFilms.sort((a, b) => {
+        console.log(a.price);
+        if (a.price > b.price) return 1; // если первое значение больше второго
+        if (a.price == b.price) return 0; // если равны
+        if (a.price < b.price) return -1; // если первое значение меньше второго
+        // let z = a.price - b.price;
+      });
+      console.log(t);
 
     default:
       return state;

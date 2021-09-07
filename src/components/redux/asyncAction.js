@@ -1,5 +1,5 @@
 import AviasalesService from "../../services/aviasales-service";
-import {checkCheapest} from "./actions";
+import {onInitialState} from "./actions";
 
 const aviaSalesService = new AviasalesService();
 
@@ -13,7 +13,7 @@ export const fetchCustomers = () => {
       .getResource()
       .then((arr) => {
         console.log(arr.tickets);
-        dispatch(checkCheapest(arr.tickets))
+        dispatch(onInitialState(arr.tickets))
       })
       .catch(onErrorRate );
   }

@@ -1,14 +1,36 @@
-import { Col, Container, Row } from "react-bootstrap";
-
 import React from 'react';
+import { Col, Container, Row } from "react-bootstrap";
 import './flight.scss';
 
+import { format } from 'date-fns'
+
 const Flight = ({item}) => {
-  console.log(item)
+
   const {price, carrier, segments: [one, two]} = item;
-  // const [{oneDirection}, {twoDirection}] = segments;
-  // console.log(origin1, destination1, date1, stops1, duration1);
+
   console.log(one.duration);
+
+  const travelTime = (date) => {
+    const dateNew = new Date(0, 0, 0, 0, 0, 0);
+    dateNew.setMinutes(date);
+    return format(dateNew, "H'ч' m'м'");
+  };
+
+  const transfer = {
+    0: "рейс прямой",
+    1: "1 пересадка",
+    2: "2 пересадки",
+    3: "3 пересадки",
+    4: "4 пересадки",
+  };
+
+  // let timeStart = '2021-03-30T06:14:00.000Z';
+  const timeStartFinish = (date, duration) => {
+    let newTime = date.replace('.000Z', '+00:00');
+    let timeStart = new Date(newTime);
+    let timeFinish = timeStart.setMinutes(timeStart.getMinutes() + duration);
+    return `${format(new Date(newTime), "HH:mm")}-${format(new Date(timeFinish), "HH:mm")}`
+  };
 
   return (
     <Container className="flight-container">
@@ -18,34 +40,33 @@ const Flight = ({item}) => {
           {carrier}
         </Col>
       </Row>
-
       <Row>
         <Col className="flight-map">
-          <div>Mow-HKT</div>
-          <div className="information">10:45-08:00</div>
+          <div>{`${one.origin}-${one.destination}`}</div>
+          <div className="information">{timeStartFinish(one.date, one.duration)}</div>
         </Col>
         <Col className="travel-time">
           <div>В пути</div>
-          <div className="information">{one.duration}</div>
+          <div className="information">{travelTime(one.duration)}</div>
         </Col>
         <Col className="transfers">
-          <div>{one.stops.length}</div>
+          <div>{transfer[one.stops.length]}</div>
           <div className="information">{one.stops.join(",")}</div>
         </Col>
       </Row>
 
       <Row>
         <Col className="flight-map">
-          <div>Mow-HKT</div>
-          <div className="information">10:45-08:00</div>
+          <div>{`${two.origin}-${two.destination}`}</div>
+          <div className="information">{timeStartFinish(two.date, two.duration)}</div>
         </Col>
         <Col className="travel-time">
           <div>В пути</div>
-          <div className="information">21ч 15м</div>
+          <div className="information">{travelTime(two.duration)}</div>
         </Col>
         <Col className="transfers">
-          <div>2 пересадки</div>
-          <div className="information">HKG,JNB</div>
+          <div>{transfer[two.stops.length]}</div>
+          <div className="information">{two.stops.join(",")}</div>
         </Col>
       </Row>
     </Container>

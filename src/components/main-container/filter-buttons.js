@@ -8,7 +8,7 @@ import * as actions from "../redux/actions";
 import { fetchCustomers } from "../redux/asyncAction";
 
 
-function FilterButtons() {
+function FilterButtons({checkCheapest}) {
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
 
@@ -17,10 +17,11 @@ function FilterButtons() {
   console.log(radioValue);
   if (radioValue === '1') {
     console.log("1");
-    // onFilter()
+    // checkCheapest();
   }
   if (radioValue === '2') {
-
+    console.log("2");
+    checkCheapest();
   }
 
   const radios = [
@@ -58,12 +59,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispathToProps = (dispatch) => {
-  return {
+// const mapDispathToProps = (dispatch) => {
+//   return {
+//
+//   }
+// }
 
-  }
-}
-
-export default connect(mapStateToProps, mapDispathToProps)(FilterButtons);
+export default connect(mapStateToProps, actions)(FilterButtons);
 
 // export default FilterButtons;
