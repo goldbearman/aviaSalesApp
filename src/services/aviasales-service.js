@@ -1,7 +1,7 @@
 export default class AviasalesService {
   _apiBase = "https://front-test.beta.aviasales.ru";
 
-  _searchId = "9hih";
+  _searchId = "1xgu6";
 
   async getResource() {
     // eslint-disable-next-line no-console

@@ -5,22 +5,26 @@ import scss from "./main-container.module.scss";
 
 import { connect } from "react-redux";
 import * as actions from "../redux/actions";
+import { fetchCustomers } from "../redux/asyncAction";
 
 
-function FilterButtons({checkCheapest}) {
+function FilterButtons() {
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
 
+  // console.log(store);
+
   console.log(radioValue);
   if (radioValue === '1') {
-    checkCheapest();
+    console.log("1");
+    // onFilter()
   }
   if (radioValue === '2') {
 
   }
 
   const radios = [
-    {name: 'САМЫЙ ДЕШОВЫЙ', value: '1'},
+    {name: 'САМЫЙ ДЕШЁВЫЙ', value: '1'},
     {name: 'САМЫЙ БЫСТРЫЙ', value: '2'},
     {name: 'ОПТИМАЛЬНЫЙ', value: '3'},
   ];
@@ -54,6 +58,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(FilterButtons);
+const mapDispathToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(FilterButtons);
 
 // export default FilterButtons;

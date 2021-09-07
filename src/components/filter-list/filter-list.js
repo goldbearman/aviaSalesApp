@@ -8,42 +8,43 @@ import * as actions from "../redux/actions";
 
 const FilterList = ({counter, checkOnFirst, checkOnSecond, checkOnFifth, checkOnThird, checkOnFourth}) => {
 
-  console.log(counter);
+  const {checkBoxes} = counter;
+  console.log(checkBoxes);
 
   return (
     <div className="filter-list">
       <h1>количество пересадок</h1>
       <div className="filter-list__item">
         <label className="check option">
-          <input className="check__input" type="checkbox" checked={counter.first} onChange={checkOnFirst} defaultChecked={counter.first}/>
+          <input className="check__input" type="checkbox" checked={checkBoxes.first} onChange={checkOnFirst} defaultChecked={checkBoxes.first}/>
           <span className="check__box"></span>
           Все</label>
       </div>
       <div className="filter-list__item">
         <label className="check option">
-          <input className="check__input" type="checkbox" checked={counter.second} onChange={checkOnSecond}
-                 defaultChecked={counter.second}/>
+          <input className="check__input" type="checkbox" checked={checkBoxes.second} onChange={checkOnSecond}
+                 defaultChecked={checkBoxes.second}/>
           <span className="check__box"></span>
           Без пересадок</label>
       </div>
       <div className="filter-list__item">
         <label className="check option">
-          <input className="check__input" type="checkbox" checked={counter.third} onChange={checkOnThird}
-                 defaultChecked={counter.third}/>
+          <input className="check__input" type="checkbox" checked={checkBoxes.third} onChange={checkOnThird}
+                 defaultChecked={checkBoxes.third}/>
           <span className="check__box"></span>
           1 пересадка</label>
       </div>
       <div className="filter-list__item">
         <label className="check option">
-          <input className="check__input" type="checkbox" checked={counter.fourth} onChange={checkOnFourth}
-                 defaultChecked={counter.fourth}/>
+          <input className="check__input" type="checkbox" checked={checkBoxes.fourth} onChange={checkOnFourth}
+                 defaultChecked={checkBoxes.fourth}/>
           <span className="check__box"></span>
           2 пересадки</label>
       </div>
       <div className="filter-list__item">
         <label className="check option">
-          <input className="check__input" type="checkbox" checked={counter.fifth} onChange={checkOnFifth}
-                 defaultChecked={counter.fifth}/>
+          <input className="check__input" type="checkbox" checked={checkBoxes.fifth} onChange={checkOnFifth}
+                 defaultChecked={checkBoxes.fifth}/>
           <span className="check__box"></span>
           3 пересадки</label>
       </div>

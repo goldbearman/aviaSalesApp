@@ -1,12 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 
 import "./app.scss";
 import Header from "../header/header";
 import FilterList from "../filter-list/filter-list";
 import MainContainer from "../main-container/main-container";
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { connect } from "react-redux";
+import { fetchCustomers } from "../redux/asyncAction";
 
-const App = () => {
+const App = ({onFilter}) => {
+
+  useEffect(() => {
+    console.log("useEffect");
+    onFilter();
+  }, []);
+
   return (
     <div className="air-container">
       <Header className="header"></Header>
@@ -25,4 +33,17 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    counter: state
+  };
+};
+
+const mapDispathToProps = (dispatch) => {
+  return {
+    onFilter: () => dispatch(fetchCustomers())
+  }
+}
+export default connect(mapStateToProps, mapDispathToProps)(App);
+
+

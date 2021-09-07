@@ -1,28 +1,12 @@
-import AviasalesService from "../../services/aviasales-service";
-
-const aviaSalesService = new AviasalesService();
-
-const onErrorRate = () => {
-  return {};
-};
-
-const getTickets = () => {
- return  aviaSalesService
-    .getResource()
-    .then((arr) => {
-      console.log(arr.tickets);
-      return arr.tickets;
-    })
-    .catch(onErrorRate );
-};
-
 const arrChecked = {
-  first: false,
-  second: false,
-  third: false,
-  fourth: false,
-  fifth: false,
-  check: 1,
+  checkBoxes: {
+    first: false,
+    second: false,
+    third: false,
+    fourth: false,
+    fifth: false,
+  },
+  allFilms: [],
 };
 
 const reducer = (state = arrChecked, action) => {
@@ -43,25 +27,26 @@ const reducer = (state = arrChecked, action) => {
     fifth: true,
   };
 
-  const checkState = (element, arr) => {
-    arr[element] = !arr[element];
-    if (!arr[element]) arr.first = false;
+  const checkState = (element, {checkBoxes, allFilms}) => {
+    checkBoxes[element] = !checkBoxes[element];
+    if (!checkBoxes[element]) checkBoxes.first = false;
     let count = 0;
-    for (let key in arr) {
-      if (arr[key]) count++;
+    for (let key in checkBoxes) {
+      if (checkBoxes[key]) count++;
     }
-    if (count === 4) arr.first = true;
-    return arr;
+    if (count === 4) checkBoxes.first = true;
+    return {checkBoxes, allFilms};
   }
 
   switch (action.type) {
 
     case "CLICKFIRST":
-      state.first = !state.first;
-      if (state.first) {
-        state = arrAllTrue;
-      } else state = arrAllFalse;
-      return state;
+      let {checkBoxes, allFilms} = state
+      checkBoxes.first = !checkBoxes.first;
+      if (checkBoxes.first) {
+        checkBoxes = arrAllTrue;
+      } else checkBoxes = arrAllFalse;
+      return {checkBoxes, allFilms};
 
     case "CLICKSECOND":
       return Object.assign({}, checkState("second", state));
@@ -76,8 +61,8 @@ const reducer = (state = arrChecked, action) => {
       return Object.assign({}, checkState("fifth", state));
 
     case "CLICKCHEAPEST":
-      return getTickets();
-
+      console.log("CLICKCHEAPEST");
+      return {...state, allFilms: action.allFilms};
 
     default:
       return state;

@@ -1,19 +1,18 @@
 import React from 'react'
 import Flight from "../flight/flight";
+import { connect } from "react-redux";
+import * as actions from "../redux/actions";
 
-const FlightList = () => {
+const FlightList = ({counter}) => {
 
-  const arrMovies = [1, 2, 3, 4, 5];
+  const arrMovies = counter.allFilms;
 
   const createList = () => {
-    const elements = arrMovies.map((movie) => {
+
+    const elements = arrMovies.splice(0,6).map((ticket) => {
+      console.log(ticket);
       return (
-          <Flight
-            // key={movie.id}
-            // movie={movie}
-            // guestSessionId={guestSessionId}
-            // allGenres={this.props.allGenres}
-            // setChangeRateArr={setChangeRateArr}
+          <Flight item = {ticket}
           />
       );
     });
@@ -26,4 +25,10 @@ const FlightList = () => {
   );
 }
 
-export default FlightList;
+const mapStateToProps = (state) => {
+  return {
+    counter: state
+  };
+};
+
+export default connect(mapStateToProps, actions)(FlightList);

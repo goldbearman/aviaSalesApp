@@ -3,16 +3,22 @@ import { Col, Container, Row } from "react-bootstrap";
 import React from 'react';
 import './flight.scss';
 
-const Flight = () => {
+const Flight = ({item}) => {
+  console.log(item)
+  const {price, carrier, segments: [one, two]} = item;
+  // const [{oneDirection}, {twoDirection}] = segments;
+  // console.log(origin1, destination1, date1, stops1, duration1);
+  console.log(one.duration);
 
   return (
     <Container className="flight-container">
       <Row>
-        <Col className="price">13 400 P</Col>
+        <Col className="price">{`${price} P`}</Col>
         <Col className="airline">
-          <img src="../pictures/sslogo.png" alt="airline"/>
+          {carrier}
         </Col>
       </Row>
+
       <Row>
         <Col className="flight-map">
           <div>Mow-HKT</div>
@@ -20,13 +26,14 @@ const Flight = () => {
         </Col>
         <Col className="travel-time">
           <div>В пути</div>
-          <div className="information">21ч 15м</div>
+          <div className="information">{one.duration}</div>
         </Col>
         <Col className="transfers">
-          <div>2 пересадки</div>
-          <div className="information">HKG,JNB</div>
+          <div>{one.stops.length}</div>
+          <div className="information">{one.stops.join(",")}</div>
         </Col>
       </Row>
+
       <Row>
         <Col className="flight-map">
           <div>Mow-HKT</div>
