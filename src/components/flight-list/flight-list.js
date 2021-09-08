@@ -5,17 +5,18 @@ import * as actions from "../redux/actions";
 
 const FlightList = ({counter}) => {
 
-  const arrMovies = counter.allFilms;
-  console.log(counter);
+  let arrMovies = [];
+  counter.filterArr.length > 0 ? arrMovies = counter.filterArr : arrMovies = counter.allFilms;
+  console.log(arrMovies);
 
   const createList = () => {
 
-    const elements = arrMovies.slice(0,counter.numberFlight).map((ticket) => {
+    const elements = arrMovies.slice(0, counter.numberFlight).map((ticket) => {
       console.log(ticket);
 
       return (
-          <Flight item = {ticket}
-          />
+        <Flight item={ticket}
+        />
       );
     });
     return elements;

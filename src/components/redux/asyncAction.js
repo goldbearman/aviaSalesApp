@@ -10,7 +10,7 @@ const onErrorRate = () => {
 export const fetchCustomers = () => {
   return dispatch => {
     aviaSalesService
-      .getResource()
+      .getFlights()
       .then((arr) => {
         console.log(arr.tickets);
         dispatch(onInitialState(arr.tickets))

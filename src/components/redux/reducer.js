@@ -1,75 +1,101 @@
 const arrChecked = {
   checkBoxes: {
-    first: false,
-    second: false,
-    third: false,
-    fourth: false,
-    fifth: false,
+    10: false,
+    0: false,
+    1: false,
+    2: false,
+    3: false,
   },
   allFilms: [],
+  filterArr: [],
   numberFlight: 5,
+  button: 1
 };
 
 const reducer = (state = arrChecked, action) => {
 
   const arrAllFalse = {
-    first: false,
-    second: false,
-    third: false,
-    fourth: false,
-    fifth: false,
+    10: false,
+    0: false,
+    1: false,
+    2: false,
+    3: false,
   };
 
   const arrAllTrue = {
-    first: true,
-    second: true,
-    third: true,
-    fourth: true,
-    fifth: true,
+    10: true,
+    0: true,
+    1: true,
+    2: true,
+    3: true,
   };
 
-  const checkState = (element, {checkBoxes, ...par}) => {
-    checkBoxes[element] = !checkBoxes[element];
-    if (!checkBoxes[element]) checkBoxes.first = false;
-    let count = 0;
-    for (let key in checkBoxes) {
-      if (checkBoxes[key]) count++;
+  const checkState = (element, prevState) => {
+    const newState = Object.assign({}, prevState);
+    newState.filterArr = [];
+
+    newState.checkBoxes[element] = !newState.checkBoxes[element];
+    if (element === 10 && newState.checkBoxes[element]) {
+      newState.checkBoxes = arrAllTrue;
     }
-    if (count === 4) checkBoxes.first = true;
-    return {checkBoxes, ...par};
-  }
+    if (element === 10 && !newState.checkBoxes[element]) {
+      newState.checkBoxes = arrAllFalse;
+    }
+    if (!newState.checkBoxes[element] && element !== 10) newState.checkBoxes[10] = false;
+    let count = 0;
+    for (let key in newState.checkBoxes) {
+      if (newState.checkBoxes[key]) {
+        console.log(key);
+
+        newState.filterArr = newState.filterArr.concat(newState.allFilms.filter(item => {
+          // console.log(item.segments[0].stops.length);
+          return item.segments[0].stops.length === +key
+        }));
+        console.log(newState.filterArr);
+        count++
+      }
+    }
+    if (count === 4) newState.checkBoxes[10] = true;
+    /////Filter flight//////
+    sortArr(newState.allFilms, newState.filterArr, newState.button);
+    return newState;
+  };
 
   const sortTemplate = (arr, parameter1) => {
     arr.sort((a, b) => {
       return a[parameter1] - b[parameter1];
     });
-  }
+  };
+
+  const sortFastest = (arr) => {
+    arr.sort((a, b) => {
+      return a.segments[0].duration - b.segments[0].duration;
+    });
+  };
+
+
+  const sortArr = (allFlights, filterFlight, button) => {
+    if (filterFlight.length > 0) {
+      button === 1 ? sortTemplate(filterFlight, "price") : sortFastest(filterFlight);
+    } else button === 1 ? sortTemplate(allFlights, "price") : sortFastest(allFlights);
+  };
 
   switch (action.type) {
 
     case "CLICKFIRST":
-      let {checkBoxes, ...par} = state
-      checkBoxes.first = !checkBoxes.first;
-      if (checkBoxes.first) {
-        checkBoxes = arrAllTrue;
-      } else checkBoxes = arrAllFalse;
-      return {checkBoxes, ...par};
+      return checkState(10, state);
 
     case "CLICKSECOND":
-      let newSecond = Object.assign({}, checkState("second", state));
-      let z = newSecond.allFilms.filter(item => item.segments[0].stops.length === 2);
-      newSecond.allFilms = z;
-      return newSecond;
-
+      return checkState(0, state);
 
     case "CLICKTHIRD":
-      return Object.assign({}, checkState("third", state));
+      return checkState(1, state);
 
     case "CLICKFOURTH":
-      return Object.assign({}, checkState("fourth", state));
+      return checkState(2, state);
 
     case "CLICKFIFTH":
-      return Object.assign({}, checkState("fifth", state));
+      return checkState(3, state);
 
     case "INITIALSTATE":
       console.log("INITIALSTATE");
@@ -78,16 +104,14 @@ const reducer = (state = arrChecked, action) => {
 
     case "CLICKCHEAPEST":
       console.log("CLICKCHEAPEST");
-      let newStateSheap = Object.assign({}, state);
-      sortTemplate(newStateSheap.allFilms, "price");
+      let newStateSheap = Object.assign({}, state, {button: 1});
+      sortArr(newStateSheap.allFilms, newStateSheap.filterArr, newStateSheap.button);
       return newStateSheap;
 
     case "CLICKFASTEST":
       console.log("CLICKFASTEST");
-      let newStateFast = Object.assign({}, state);
-      newStateFast.allFilms.sort((a, b) => {
-        return a.segments[0].duration - b.segments[0].duration;
-      });
+      let newStateFast = Object.assign({}, state, {button: 2});
+      sortArr(newStateFast.allFilms, newStateFast.filterArr, newStateFast.button);
       return newStateFast;
 
     case "FIVEMORETICKETS":
