@@ -38,6 +38,12 @@ const reducer = (state = arrChecked, action) => {
     return {checkBoxes, allFilms};
   }
 
+  const sortTemplate = (arr, parameter1) => {
+    arr.sort((a, b) => {
+      return a[parameter1] - b[parameter1] ;
+    });
+  }
+
   switch (action.type) {
 
     case "CLICKFIRST":
@@ -61,24 +67,23 @@ const reducer = (state = arrChecked, action) => {
       return Object.assign({}, checkState("fifth", state));
 
     case "INITIALSTATE":
-      // const fiveFilms = action.allFilms.slice(0,6);
-      // console.log(fiveFilms);
       console.log("INITIALSTATE");
+      sortTemplate(action.allFilms, "price");
       return {...state, allFilms: action.allFilms};
 
     case "CLICKCHEAPEST":
       console.log("CLICKCHEAPEST");
-      // return {...state, allFilms: action.allFilms};
-      console.log(state);
-      let newState = Object.assign({}, {...state, allFilms: action.allFilms});
-      let t = newState.allFilms.sort((a, b) => {
-        console.log(a.price);
-        if (a.price > b.price) return 1; // если первое значение больше второго
-        if (a.price == b.price) return 0; // если равны
-        if (a.price < b.price) return -1; // если первое значение меньше второго
-        // let z = a.price - b.price;
+      let newStateSheap = Object.assign({}, state);
+      sortTemplate(newStateSheap.allFilms, "price");
+      return newStateSheap;
+
+    case "CLICKFASTEST":
+      console.log("CLICKFASTEST");
+      let newStateFast = Object.assign({}, state);
+      newStateFast.allFilms.sort((a, b) => {
+        return a.segments[0].duration - b.segments[0].duration;
       });
-      console.log(t);
+      return newStateFast;
 
     default:
       return state;

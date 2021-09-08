@@ -5,5 +5,6 @@ export const checkOnFourth = () => ({type: "CLICKFOURTH"});
 export const checkOnFifth = () => ({type: "CLICKFIFTH"});
 
 export const checkCheapest = () => ({type: "CLICKCHEAPEST"});
+export const checkFastest = () => ({type: "CLICKFASTEST"});
 
 export const onInitialState = (allFilms) => ({type: "INITIALSTATE", allFilms});
