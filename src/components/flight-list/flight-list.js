@@ -10,7 +10,7 @@ const FlightList = ({counter}) => {
 
   const createList = () => {
 
-    const elements = arrMovies.slice(0,5).map((ticket) => {
+    const elements = arrMovies.slice(0,counter.numberFlight).map((ticket) => {
       console.log(ticket);
 
       return (

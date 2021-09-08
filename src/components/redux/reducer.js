@@ -7,6 +7,7 @@ const arrChecked = {
     fifth: false,
   },
   allFilms: [],
+  numberFlight: 5,
 };
 
 const reducer = (state = arrChecked, action) => {
@@ -27,7 +28,7 @@ const reducer = (state = arrChecked, action) => {
     fifth: true,
   };
 
-  const checkState = (element, {checkBoxes, allFilms}) => {
+  const checkState = (element, {checkBoxes, ...par}) => {
     checkBoxes[element] = !checkBoxes[element];
     if (!checkBoxes[element]) checkBoxes.first = false;
     let count = 0;
@@ -35,27 +36,31 @@ const reducer = (state = arrChecked, action) => {
       if (checkBoxes[key]) count++;
     }
     if (count === 4) checkBoxes.first = true;
-    return {checkBoxes, allFilms};
+    return {checkBoxes, ...par};
   }
 
   const sortTemplate = (arr, parameter1) => {
     arr.sort((a, b) => {
-      return a[parameter1] - b[parameter1] ;
+      return a[parameter1] - b[parameter1];
     });
   }
 
   switch (action.type) {
 
     case "CLICKFIRST":
-      let {checkBoxes, allFilms} = state
+      let {checkBoxes, ...par} = state
       checkBoxes.first = !checkBoxes.first;
       if (checkBoxes.first) {
         checkBoxes = arrAllTrue;
       } else checkBoxes = arrAllFalse;
-      return {checkBoxes, allFilms};
+      return {checkBoxes, ...par};
 
     case "CLICKSECOND":
-      return Object.assign({}, checkState("second", state));
+      let newSecond = Object.assign({}, checkState("second", state));
+      let z = newSecond.allFilms.filter(item => item.segments[0].stops.length === 2);
+      newSecond.allFilms = z;
+      return newSecond;
+
 
     case "CLICKTHIRD":
       return Object.assign({}, checkState("third", state));
@@ -84,6 +89,12 @@ const reducer = (state = arrChecked, action) => {
         return a.segments[0].duration - b.segments[0].duration;
       });
       return newStateFast;
+
+    case "FIVEMORETICKETS":
+      console.log("FIVEMORETICKETS");
+      let newStateFiveMoreTickets = Object.assign({}, state);
+      newStateFiveMoreTickets.numberFlight += 5;
+      return newStateFiveMoreTickets;
 
     default:
       return state;
