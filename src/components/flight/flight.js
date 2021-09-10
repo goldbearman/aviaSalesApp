@@ -32,12 +32,20 @@ const Flight = ({item}) => {
     return `${format(new Date(newTime), "HH:mm")}-${format(new Date(timeFinish), "HH:mm")}`
   };
 
+  let poster;
+  // eslint-disable-next-line camelcase
+  if (carrier) {
+    // eslint-disable-next-line camelcase
+    poster = `https://pics.avs.io/99/36/${carrier}.png`;
+  }
+  // else poster = icon;
+
   return (
     <Container className="flight-container">
       <Row>
         <Col className="price">{`${price} P`}</Col>
-        <Col className="airline">
-          {carrier}
+        <Col className="airline airline-position">
+          <img className="card__poster" src={poster} alt="carrier" />
         </Col>
       </Row>
       <Row>
