@@ -1,18 +1,21 @@
 const arrChecked = {
   checkBoxes: {
-    10: false,
-    0: false,
-    1: false,
-    2: false,
-    3: false,
+    10: true,
+    0: true,
+    1: true,
+    2: true,
+    3: true,
   },
   allFilms: [],
   filterArr: [],
   numberFlight: 5,
-  button: 1
+  button: 1,
+  error: false,
+  loading: false
 };
 
 const reducer = (state = arrChecked, action) => {
+
 
   const arrAllFalse = {
     10: false,
@@ -30,8 +33,9 @@ const reducer = (state = arrChecked, action) => {
     3: true,
   };
 
+
   const checkState = (element, prevState) => {
-    const newState = Object.assign({}, prevState);
+    let newState = Object.assign({}, prevState);
     newState.filterArr = [];
 
     newState.checkBoxes[element] = !newState.checkBoxes[element];
@@ -42,6 +46,29 @@ const reducer = (state = arrChecked, action) => {
       newState.checkBoxes = arrAllFalse;
     }
     if (!newState.checkBoxes[element] && element !== 10) newState.checkBoxes[10] = false;
+    // let count = 0;
+    // for (let key in newState.checkBoxes) {
+    //   if (newState.checkBoxes[key]) {
+    //     console.log(key);
+    //
+    //     newState.filterArr = newState.filterArr.concat(newState.allFilms.filter(item => {
+    //       // console.log(item.segments[0].stops.length);
+    //       return item.segments[0].stops.length === +key
+    //     }));
+    //     console.log(newState.filterArr);
+    //     count++
+    //   }
+    // }
+    // if (count === 4) newState.checkBoxes[10] = true;
+
+    newState = fillFilterArr(newState);
+
+    /////Filter flight//////
+    sortArr(newState.allFilms, newState.filterArr, newState.button);
+    return newState;
+  };
+
+  const fillFilterArr = (newState) => {
     let count = 0;
     for (let key in newState.checkBoxes) {
       if (newState.checkBoxes[key]) {
@@ -56,15 +83,15 @@ const reducer = (state = arrChecked, action) => {
       }
     }
     if (count === 4) newState.checkBoxes[10] = true;
-    /////Filter flight//////
-    sortArr(newState.allFilms, newState.filterArr, newState.button);
+    newState.loading = true;
     return newState;
-  };
+  }
 
   const sortTemplate = (arr, parameter1) => {
     arr.sort((a, b) => {
       return a[parameter1] - b[parameter1];
     });
+    return arr;
   };
 
   const sortFastest = (arr) => {
@@ -99,8 +126,12 @@ const reducer = (state = arrChecked, action) => {
 
     case "INITIALSTATE":
       console.log("INITIALSTATE");
-      sortTemplate(action.allFilms, "price");
-      return {...state, allFilms: action.allFilms};
+      // if(action.allFilms){
+      console.log(action.allFilms)
+      let newState = Object.assign({}, state, action.allFilms);
+      return fillFilterArr(newState);
+    // }else Object.assign({}, state, {error: !action.allFilms[1]});
+
 
     case "CLICKCHEAPEST":
       console.log("CLICKCHEAPEST");

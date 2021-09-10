@@ -4,7 +4,7 @@ import {onInitialState} from "./actions";
 const aviaSalesService = new AviasalesService();
 
 const onErrorRate = () => {
-  return {};
+  console.log("err");
 };
 
 export const fetchCustomers = () => {
@@ -12,9 +12,9 @@ export const fetchCustomers = () => {
     aviaSalesService
       .getFlights()
       .then((arr) => {
-        console.log(arr.tickets);
-        dispatch(onInitialState(arr.tickets))
+        console.log(arr);
+        dispatch(onInitialState({allFilms:arr.tickets,error:false}))
       })
-      .catch(onErrorRate );
+      .catch(dispatch(onInitialState({allFilms:[],error:false,loading:false})));
   }
 }

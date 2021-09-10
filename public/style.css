@@ -30,6 +30,7 @@ body {
 
 html{
     background: #F3F7FA;
+    padding: 0 calc(20px - (100vw - 100%)) 0 0;
 }
 
 body {
@@ -44,6 +45,6 @@ body {
 }
 
 #root{
-    background: #F3F7FA;
+    background: #f3f7fa;
 }
 
