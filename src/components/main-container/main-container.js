@@ -14,8 +14,11 @@ const MainContainer = ({counter, fiveMoreTickets}) => {
   const error = counter.error;
   const isEmptyArr = counter.filterArr.length === 0;
 
+  // console.log(loading, error, isEmptyArr);
+
   const hasData = !(!loading || error || isEmptyArr);
-  const onSpinner = Object.values(counter.checkBoxes).some(item => item) && isEmptyArr && loading && !error ?
+  // const onSpinner = Object.values(counter.checkBoxes).some(item => item) && isEmptyArr && loading && !error ?
+  const onSpinner =  !loading  ?
     (<div className={scss.spinnerPosition}><Spinner className={scss.spinnerBorder} animation="border"
                                                     variant="primary"/></div>) : null;
 
@@ -28,7 +31,7 @@ const MainContainer = ({counter, fiveMoreTickets}) => {
   const onEmptyArr =
     !Object.values(counter.checkBoxes).some(item => item) && loading && !error ? (
       <Alert className={scss.alertPosition} variant='primary'>
-        Для успешного поиска выберите колличество пересадок!
+        Рейсов, подходящих под заданные фильтры, не найдено!
       </Alert>
     ) : null;
 

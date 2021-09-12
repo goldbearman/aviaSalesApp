@@ -4,24 +4,24 @@ import { connect } from "react-redux";
 import * as actions from "../redux/actions";
 
 const FlightList = ({counter}) => {
-
+  let key = 100;
   // let arrMovies = [];
   // counter.filterArr.length > 0 ? arrMovies = counter.filterArr : arrMovies = counter.allFilms;
-  console.log(counter.filterArr);
+  // console.log(counter.filterArr);
 
   const createList = () => {
 
     const elements = counter.filterArr.slice(0, counter.numberFlight).map((ticket) => {
-      console.log(ticket);
+      // console.log(ticket);
 
       return (
-        <Flight item={ticket}
+        <Flight item={ticket} key={key++}
         />
       );
     });
     return elements;
   };
-  console.log(createList());
+  // console.log(createList());
 
   return (
     createList()

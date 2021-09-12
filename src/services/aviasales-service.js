@@ -1,34 +1,35 @@
 export default class AviasalesService {
-  _apiBase = "https://front-test.beta.aviasales.ru";
-
+  // _apiBase = "https://front-test.beta.aviasales.ru";
+  _apiBase = "https://aviasales-test-api.java-mentor.com";
 
 
   async getResources(url) {
-    console.log("getResource");
+    // console.log("getResource");
     const res = await fetch(`${this._apiBase}${url}`);
-    if (!res.ok) {
-      throw new Error(`Could not fetch ${url}, received ${res.status}`);
+    // console.log(res);
+    if (res.ok) {
+      // throw new Error("Bad response from server");
+      return await res.json();
     }
-    return await res.json();
+  }
+
+  async getId() {
+    const searchIdJson = await this.getResources("/search");
+    const searchId = searchIdJson['searchId'];
+    return searchId;
   }
 
 
-
-  async getFlights() {
+  async getFlights(searchId) {
     // eslint-disable-next-line no-console
-    console.log("getFlights");
-
-    const searchIdJson = await this.getResources("/search");
-    const searchId = searchIdJson['searchId'];
-    console.log(searchId);
 
 
-    // const res = await fetch(`${this._apiBase}/tickets?searchId=${this._searchId}`);
-    // if (!res.ok) {
-    //   throw new Error(`Could not fetch , received ${res.status}`);
-    // }
-    // eslint-disable-next-line no-return-await
-    // return await res.json();
-    return await this.getResources(`/tickets?searchId=${searchId}`);
+    // console.log(searchIdJson);
+
+    let res = await this.getResources(`/tickets?searchId=${searchId}`);
+    console.log(res);
+    if (res === undefined) {
+      return {tickets: [], stop: false};
+    } else return res;
   }
 }

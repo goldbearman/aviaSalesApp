@@ -8,7 +8,7 @@ const Flight = ({item}) => {
 
   const {price, carrier, segments: [one, two]} = item;
 
-  console.log(one.duration);
+
 
   const travelTime = (date) => {
     const dateNew = new Date(0, 0, 0, 0, 0, 0);

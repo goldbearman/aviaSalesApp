@@ -46,26 +46,8 @@ const reducer = (state = arrChecked, action) => {
       newState.checkBoxes = arrAllFalse;
     }
     if (!newState.checkBoxes[element] && element !== 10) newState.checkBoxes[10] = false;
-    // let count = 0;
-    // for (let key in newState.checkBoxes) {
-    //   if (newState.checkBoxes[key]) {
-    //     console.log(key);
-    //
-    //     newState.filterArr = newState.filterArr.concat(newState.allFilms.filter(item => {
-    //       // console.log(item.segments[0].stops.length);
-    //       return item.segments[0].stops.length === +key
-    //     }));
-    //     console.log(newState.filterArr);
-    //     count++
-    //   }
-    // }
-    // if (count === 4) newState.checkBoxes[10] = true;
-
     newState = fillFilterArr(newState);
-
-    /////Filter flight//////
-    sortArr(newState.allFilms, newState.filterArr, newState.button);
-    return newState;
+    return sortArr(newState);
   };
 
   const fillFilterArr = (newState) => {
@@ -85,7 +67,7 @@ const reducer = (state = arrChecked, action) => {
     if (count === 4) newState.checkBoxes[10] = true;
     newState.loading = true;
     return newState;
-  }
+  };
 
   const sortTemplate = (arr, parameter1) => {
     arr.sort((a, b) => {
@@ -100,11 +82,12 @@ const reducer = (state = arrChecked, action) => {
     });
   };
 
+  const sortArr = (arr) => {
+    if (arr.filterArr.length > 0) {
 
-  const sortArr = (allFlights, filterFlight, button) => {
-    if (filterFlight.length > 0) {
-      button === 1 ? sortTemplate(filterFlight, "price") : sortFastest(filterFlight);
-    } else button === 1 ? sortTemplate(allFlights, "price") : sortFastest(allFlights);
+      arr.button === 1 ? sortTemplate(arr.filterArr, "price") : sortFastest(arr.filterArr);
+    } else arr.button === 1 ? sortTemplate(arr.allFilms, "price") : sortFastest(arr.allFilms);
+    return arr;
   };
 
   switch (action.type) {
@@ -125,25 +108,21 @@ const reducer = (state = arrChecked, action) => {
       return checkState(3, state);
 
     case "INITIALSTATE":
-      console.log("INITIALSTATE");
+      // console.log("INITIALSTATE");
       // if(action.allFilms){
-      console.log(action.allFilms)
-      let newState = Object.assign({}, state, action.allFilms);
-      return fillFilterArr(newState);
-    // }else Object.assign({}, state, {error: !action.allFilms[1]});
 
+      let newState = Object.assign({}, state, action.allFilms,{filterArr:[...state.filterArr,...action.allFilms.filterArr]});
+      return sortArr(newState);
 
     case "CLICKCHEAPEST":
-      console.log("CLICKCHEAPEST");
+      // console.log("CLICKCHEAPEST");
       let newStateSheap = Object.assign({}, state, {button: 1});
-      sortArr(newStateSheap.allFilms, newStateSheap.filterArr, newStateSheap.button);
-      return newStateSheap;
+      return sortArr(newStateSheap);
 
     case "CLICKFASTEST":
-      console.log("CLICKFASTEST");
+      // console.log("CLICKFASTEST");
       let newStateFast = Object.assign({}, state, {button: 2});
-      sortArr(newStateFast.allFilms, newStateFast.filterArr, newStateFast.button);
-      return newStateFast;
+      return sortArr(newStateFast);
 
     case "FIVEMORETICKETS":
       console.log("FIVEMORETICKETS");

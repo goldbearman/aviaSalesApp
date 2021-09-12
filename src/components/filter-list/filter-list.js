@@ -9,7 +9,7 @@ import * as actions from "../redux/actions";
 const FilterList = ({counter, checkOnFirst, checkOnSecond, checkOnFifth, checkOnThird, checkOnFourth}) => {
 
   const {checkBoxes} = counter;
-  console.log(checkBoxes);
+
 
   return (
     <div className="filter-list">
