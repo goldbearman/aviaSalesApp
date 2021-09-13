@@ -16,6 +16,7 @@ export default class AviasalesService {
   async getId() {
     const searchIdJson = await this.getResources("/search");
     const searchId = searchIdJson['searchId'];
+    console.log(searchId);
     return searchId;
   }
 

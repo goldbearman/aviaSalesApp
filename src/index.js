@@ -21,7 +21,7 @@ const loggerMiddleware = store => next => action => {
   return result;
 };
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(loggerMiddleware, reduxThunk)));
+const store = createStore(reducer, composeEnhancers(applyMiddleware( reduxThunk)));
 
 ReactDOM.render(
   <Provider store={store}>

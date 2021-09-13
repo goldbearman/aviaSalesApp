@@ -1,9 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 
 .air-container{
-
   .content{
     max-width: 800px;
+
+    .progressBarLocation{
+      margin-bottom: 10px;
+    }
   }
 }
 

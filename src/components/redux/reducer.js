@@ -11,7 +11,9 @@ const arrChecked = {
   numberFlight: 5,
   button: 1,
   error: false,
-  loading: false
+  loading: false,
+  stop:false,
+  progressBar: 0
 };
 
 const reducer = (state = arrChecked, action) => {
@@ -84,7 +86,6 @@ const reducer = (state = arrChecked, action) => {
 
   const sortArr = (arr) => {
     if (arr.filterArr.length > 0) {
-
       arr.button === 1 ? sortTemplate(arr.filterArr, "price") : sortFastest(arr.filterArr);
     } else arr.button === 1 ? sortTemplate(arr.allFilms, "price") : sortFastest(arr.allFilms);
     return arr;
@@ -112,6 +113,8 @@ const reducer = (state = arrChecked, action) => {
       // if(action.allFilms){
 
       let newState = Object.assign({}, state, action.allFilms,{filterArr:[...state.filterArr,...action.allFilms.filterArr]});
+      newState.allFilms = newState.filterArr;
+      newState.progressBar = (newState.allFilms.length/8000)*100;
       return sortArr(newState);
 
     case "CLICKCHEAPEST":
