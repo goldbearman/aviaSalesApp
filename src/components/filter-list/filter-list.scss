@@ -41,6 +41,11 @@
         background: url("../../pictures/form-checked.svg") no-repeat center;
       }
 
+      &:disabled + .check__box {
+        background: url("../../pictures/сheckbox-disabled.svg") no-repeat center;
+      }
+
+
       //&:focus + .check__box {
       //  background: url("../../pictures/form-focus.svg") no-repeat center;
       //}

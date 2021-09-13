@@ -16,35 +16,36 @@ const FilterList = ({counter, checkOnFirst, checkOnSecond, checkOnFifth, checkOn
       <h1>количество пересадок</h1>
       <div className="filter-list__item">
         <label className="check option">
-          <input className="check__input" type="checkbox" checked={checkBoxes[10]} onChange={checkOnFirst} defaultChecked={checkBoxes.first}/>
+          <input className="check__input" type="checkbox" checked={checkBoxes[10]} onChange={checkOnFirst}
+                 defaultChecked={checkBoxes.first} disabled={!counter.stop}/>
           <span className="check__box"></span>
           Все</label>
       </div>
       <div className="filter-list__item">
         <label className="check option">
           <input className="check__input" type="checkbox" checked={checkBoxes[0]} onChange={checkOnSecond}
-                 defaultChecked={checkBoxes.second}/>
+                 defaultChecked={checkBoxes.second} disabled={!counter.stop}/>
           <span className="check__box"></span>
           Без пересадок</label>
       </div>
       <div className="filter-list__item">
         <label className="check option">
           <input className="check__input" type="checkbox" checked={checkBoxes[1]} onChange={checkOnThird}
-                 defaultChecked={checkBoxes.third}/>
+                 defaultChecked={checkBoxes.third} disabled={!counter.stop}/>
           <span className="check__box"></span>
           1 пересадка</label>
       </div>
       <div className="filter-list__item">
         <label className="check option">
           <input className="check__input" type="checkbox" checked={checkBoxes[2]} onChange={checkOnFourth}
-                 defaultChecked={checkBoxes.fourth}/>
+                 defaultChecked={checkBoxes.fourth} disabled={!counter.stop}/>
           <span className="check__box"></span>
           2 пересадки</label>
       </div>
       <div className="filter-list__item">
         <label className="check option">
           <input className="check__input" type="checkbox" checked={checkBoxes[3]} onChange={checkOnFifth}
-                 defaultChecked={checkBoxes.fifth}/>
+                 defaultChecked={checkBoxes.fifth} disabled={!counter.stop}/>
           <span className="check__box"></span>
           3 пересадки</label>
       </div>
