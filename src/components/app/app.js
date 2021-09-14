@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 
-import "./app.scss";
 import Header from "../header/header";
 import FilterList from "../filter-list/filter-list";
 import MainContainer from "../main-container/main-container";
-import { Container, Row, Col, ProgressBar } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 import { connect } from "react-redux";
 import { fetchCustomers } from "../redux/asyncAction";
 import AviasalesService from "../../services/aviasales-service";
+import classes from "./app.module.scss";
+import globalStyle from '../../assets/global-style/bootstrap.css';
+import cn from 'classnames';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 const App = ({counter, onFilter}) => {
+
+  console.log(classes);
 
   const aviaSalesService = new AviasalesService();
 
@@ -26,19 +31,19 @@ const App = ({counter, onFilter}) => {
   }
 
   return (
-    <div className="air-container">
+    <div className={cn(classes.airContainer)}>
       <Header className="header"></Header>
-      <Container className="content">
-        {!counter.stop && <ProgressBar className="progressBarLocation" animated now={counter.progressBar}/>}
-        <Row>
-          <Col md={4}>
+      <div className={cn(globalStyle.container,classes.content)}>
+        {!counter.stop && <ProgressBar className={classes.progressBarLocation} animated now={counter.progressBar}/>}
+        <div className={globalStyle.row}>
+          <div className={globalStyle.col4} >
             <FilterList/>
-          </Col>
-          <Col md={8}>
+          </div>
+          <div className={globalStyle.col8} >
             <MainContainer/>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
