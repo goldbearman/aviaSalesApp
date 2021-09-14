@@ -1,28 +1,22 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import "./app.scss";
 import Header from "../header/header";
 import FilterList from "../filter-list/filter-list";
 import MainContainer from "../main-container/main-container";
-import { Container, Row, Col, Button, ProgressBar } from 'react-bootstrap';
+import { Container, Row, Col, ProgressBar } from 'react-bootstrap';
 import { connect } from "react-redux";
 import { fetchCustomers } from "../redux/asyncAction";
 import AviasalesService from "../../services/aviasales-service";
-import { useCol } from "react-bootstrap/Col";
+
 
 const App = ({counter, onFilter}) => {
 
   const aviaSalesService = new AviasalesService();
 
-  // const [idKey, setIdKey] = useState(null);
-  // const [stopLoop, setStopLoop] = useState([]);
-
   useEffect(() => {
-    console.log("useEffect");
-
     aviaSalesService
       .getId().then(idKey => {
-      // setIdKey(idKey);
       onFilter(idKey);
     });
   }, []);

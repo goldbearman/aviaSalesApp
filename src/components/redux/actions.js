@@ -1,12 +1,12 @@
-export const checkOnFirst = () => ({type: "CLICKFIRST"});
-export const checkOnSecond = () => ({type: "CLICKSECOND"});
-export const checkOnThird = () => ({type: "CLICKTHIRD"});
-export const checkOnFourth = () => ({type: "CLICKFOURTH"});
-export const checkOnFifth = () => ({type: "CLICKFIFTH"});
+export const ON_CHEKCBOX = 'ON_CHEKCBOX';
+export const INITIALSTATE = 'INITIALSTATE';
+export const CLICK_CHEAPEST = 'CLICKCHEAPEST';
+export const CLICK_FASTEST = 'CLICKFASTEST';
+export const FIVE_MORE_TICKETS = 'FIVEMORETICKETS';
 
-export const checkCheapest = () => ({type: "CLICKCHEAPEST"});
-export const checkFastest = () => ({type: "CLICKFASTEST"});
 
-export const fiveMoreTickets = () => ({type: "FIVEMORETICKETS"});
-
-export const onInitialState = (allFilms) => ({type: "INITIALSTATE", allFilms});
+export const onCheckBox = (number) => ({type: ON_CHEKCBOX,number});
+export const checkCheapest = () => ({type: CLICK_CHEAPEST});
+export const checkFastest = () => ({type: CLICK_FASTEST});
+export const fiveMoreTickets = () => ({type: FIVE_MORE_TICKETS});
+export const onInitialState = (allFilms) => ({type: INITIALSTATE, allFilms});

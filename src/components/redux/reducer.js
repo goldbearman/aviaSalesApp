@@ -1,3 +1,5 @@
+import {ON_CHEKCBOX,INITIALSTATE,CLICK_CHEAPEST,CLICK_FASTEST,FIVE_MORE_TICKETS} from "./actions";
+
 const arrChecked = {
   checkBoxes: {
     10: true,
@@ -93,42 +95,25 @@ const reducer = (state = arrChecked, action) => {
 
   switch (action.type) {
 
-    case "CLICKFIRST":
-      return checkState(10, state);
+    case ON_CHEKCBOX:
+      console.log('ON_CHEKCBOX')
+      return checkState(action.number, state);
 
-    case "CLICKSECOND":
-      return checkState(0, state);
-
-    case "CLICKTHIRD":
-      return checkState(1, state);
-
-    case "CLICKFOURTH":
-      return checkState(2, state);
-
-    case "CLICKFIFTH":
-      return checkState(3, state);
-
-    case "INITIALSTATE":
-      // console.log("INITIALSTATE");
-      // if(action.allFilms){
-
+    case INITIALSTATE:
       let newState = Object.assign({}, state, action.allFilms,{filterArr:[...state.filterArr,...action.allFilms.filterArr]});
       newState.allFilms = newState.filterArr;
       newState.progressBar = (newState.allFilms.length/8000)*100;
       return sortArr(newState);
 
-    case "CLICKCHEAPEST":
-      // console.log("CLICKCHEAPEST");
+    case CLICK_CHEAPEST:
       let newStateSheap = Object.assign({}, state, {button: 1});
       return sortArr(newStateSheap);
 
-    case "CLICKFASTEST":
-      // console.log("CLICKFASTEST");
+    case CLICK_FASTEST:
       let newStateFast = Object.assign({}, state, {button: 2});
       return sortArr(newStateFast);
 
-    case "FIVEMORETICKETS":
-      console.log("FIVEMORETICKETS");
+    case FIVE_MORE_TICKETS:
       let newStateFiveMoreTickets = Object.assign({}, state);
       newStateFiveMoreTickets.numberFlight += 5;
       return newStateFiveMoreTickets;
