@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
-import scss from "./main-container.module.scss";
+import { connect } from 'react-redux';
+import scss from './main-container.module.scss';
 
-import { connect } from "react-redux";
-import * as actions from "../redux/actions";
-import { fetchCustomers } from "../redux/asyncAction";
+import * as actions from '../redux/actions';
+import { fetchCustomers } from '../redux/asyncAction';
 
-
-function FilterButtons({checkCheapest, checkFastest}) {
+function FilterButtons({ checkCheapest, checkFastest }) {
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
 
   const radios = [
-    {name: 'САМЫЙ ДЕШЁВЫЙ', value: '1'},
-    {name: 'САМЫЙ БЫСТРЫЙ', value: '2'},
+    { name: 'САМЫЙ ДЕШЁВЫЙ', value: '1' },
+    { name: 'САМЫЙ БЫСТРЫЙ', value: '2' },
     // {name: 'ОПТИМАЛЬНЫЙ', value: '3'},
   ];
 
@@ -44,12 +43,8 @@ function FilterButtons({checkCheapest, checkFastest}) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    counter: state
-  };
-};
+const mapStateToProps = (state) => ({
+  counter: state,
+});
 
 export default connect(mapStateToProps, actions)(FilterButtons);
-
-

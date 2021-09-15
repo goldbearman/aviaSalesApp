@@ -1,4 +1,6 @@
-import {ON_CHEKCBOX,INITIALSTATE,CLICK_CHEAPEST,CLICK_FASTEST,FIVE_MORE_TICKETS} from "./actions";
+import {
+  ON_CHEKCBOX, INITIALSTATE, CLICK_CHEAPEST, CLICK_FASTEST, FIVE_MORE_TICKETS,
+} from './actions';
 
 const arrChecked = {
   checkBoxes: {
@@ -14,13 +16,11 @@ const arrChecked = {
   button: 1,
   error: false,
   loading: false,
-  stop:false,
-  progressBar: 0
+  stop: false,
+  progressBar: 0,
 };
 
 const reducer = (state = arrChecked, action) => {
-
-
   const arrAllFalse = {
     10: false,
     0: false,
@@ -37,9 +37,8 @@ const reducer = (state = arrChecked, action) => {
     3: true,
   };
 
-
   const checkState = (element, prevState) => {
-    let newState = Object.assign({}, prevState);
+    let newState = { ...prevState };
     newState.filterArr = [];
 
     newState.checkBoxes[element] = !newState.checkBoxes[element];
@@ -56,16 +55,15 @@ const reducer = (state = arrChecked, action) => {
 
   const fillFilterArr = (newState) => {
     let count = 0;
-    for (let key in newState.checkBoxes) {
+    for (const key in newState.checkBoxes) {
       if (newState.checkBoxes[key]) {
         console.log(key);
 
-        newState.filterArr = newState.filterArr.concat(newState.allFilms.filter(item => {
+        newState.filterArr = newState.filterArr.concat(newState.allFilms.filter((item) =>
           // console.log(item.segments[0].stops.length);
-          return item.segments[0].stops.length === +key
-        }));
+          item.segments[0].stops.length === +key));
         console.log(newState.filterArr);
-        count++
+        count++;
       }
     }
     if (count === 4) newState.checkBoxes[10] = true;
@@ -74,47 +72,42 @@ const reducer = (state = arrChecked, action) => {
   };
 
   const sortTemplate = (arr, parameter1) => {
-    arr.sort((a, b) => {
-      return a[parameter1] - b[parameter1];
-    });
+    arr.sort((a, b) => a[parameter1] - b[parameter1]);
     return arr;
   };
 
   const sortFastest = (arr) => {
-    arr.sort((a, b) => {
-      return a.segments[0].duration - b.segments[0].duration;
-    });
+    arr.sort((a, b) => a.segments[0].duration - b.segments[0].duration);
   };
 
   const sortArr = (arr) => {
     if (arr.filterArr.length > 0) {
-      arr.button === 1 ? sortTemplate(arr.filterArr, "price") : sortFastest(arr.filterArr);
-    } else arr.button === 1 ? sortTemplate(arr.allFilms, "price") : sortFastest(arr.allFilms);
+      arr.button === 1 ? sortTemplate(arr.filterArr, 'price') : sortFastest(arr.filterArr);
+    } else arr.button === 1 ? sortTemplate(arr.allFilms, 'price') : sortFastest(arr.allFilms);
     return arr;
   };
 
   switch (action.type) {
-
     case ON_CHEKCBOX:
-      console.log('ON_CHEKCBOX')
+      console.log('ON_CHEKCBOX');
       return checkState(action.number, state);
 
     case INITIALSTATE:
-      let newState = Object.assign({}, state, action.allFilms,{filterArr:[...state.filterArr,...action.allFilms.filterArr]});
+      const newState = { ...state, ...action.allFilms, filterArr: [...state.filterArr, ...action.allFilms.filterArr] };
       newState.allFilms = newState.filterArr;
-      newState.progressBar = (newState.allFilms.length/8000)*100;
+      newState.progressBar = (newState.allFilms.length / 8000) * 100;
       return sortArr(newState);
 
     case CLICK_CHEAPEST:
-      let newStateSheap = Object.assign({}, state, {button: 1});
+      const newStateSheap = { ...state, button: 1 };
       return sortArr(newStateSheap);
 
     case CLICK_FASTEST:
-      let newStateFast = Object.assign({}, state, {button: 2});
+      const newStateFast = { ...state, button: 2 };
       return sortArr(newStateFast);
 
     case FIVE_MORE_TICKETS:
-      let newStateFiveMoreTickets = Object.assign({}, state);
+      const newStateFiveMoreTickets = { ...state };
       newStateFiveMoreTickets.numberFlight += 5;
       return newStateFiveMoreTickets;
 

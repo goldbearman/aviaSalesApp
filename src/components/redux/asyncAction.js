@@ -1,16 +1,15 @@
-import AviasalesService from "../../services/aviasales-service";
-import { onInitialState } from "./actions";
+import AviasalesService from '../../services/aviasales-service';
+import { onInitialState } from './actions';
 
 const aviaSalesService = new AviasalesService();
 
-
 export const fetchCustomers = (idKey) => {
-  console.log(idKey)
-  return dispatch => {
-    console.log("LOOP");
+  console.log(idKey);
+  return (dispatch) => {
+    console.log('LOOP');
     getArrTickets(dispatch, idKey);
-  }
-}
+  };
+};
 
 const getArrTickets = (dispatch, idKey) => {
   let stop = false;
@@ -30,5 +29,7 @@ const getArrTickets = (dispatch, idKey) => {
         stop: arr.stop,
       }));
     })
-    .catch(dispatch(onInitialState({allFilms: [], filterArr: [], error: false, loading: false, stop: false})));
-}
+    .catch(dispatch(onInitialState({
+      allFilms: [], filterArr: [], error: false, loading: false, stop: false,
+    })));
+};
