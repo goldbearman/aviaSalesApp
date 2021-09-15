@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { Button, Alert, Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 import FilterButtons from './filter-buttons';
 import FlightList from '../flight-list/flight-list';
 import scss from './main-container.module.scss';
 import * as actions from '../redux/actions';
 
-const MainContainer = ({ counter, fiveMoreTickets }) => {
-  const { loading } = counter;
-  const { error } = counter;
+const MainContainer = ({counter, fiveMoreTickets}) => {
+  const {loading} = counter;
+  const {error} = counter;
   const isEmptyArr = counter.filterArr.length === 0;
 
   const hasData = !(!loading || error || isEmptyArr);
@@ -37,13 +38,13 @@ const MainContainer = ({ counter, fiveMoreTickets }) => {
 
   return (
     <div className={scss.containerTickets}>
-      <FilterButtons />
+      <FilterButtons/>
       {onSpinner}
       {onErrorMessage}
       {onEmptyArr}
       {hasData ? (
         <div>
-          <FlightList />
+          <FlightList/>
           <Button className={`${scss.btn} ${scss.btnFiveTickets}`} onClick={fiveMoreTickets} size="lg">
             Показать еще 5
             билетов!
@@ -57,5 +58,15 @@ const MainContainer = ({ counter, fiveMoreTickets }) => {
 const mapStateToProps = (state) => ({
   counter: state,
 });
+
+MainContainer.propTypes = {
+  counter: PropTypes.arrayOf(PropTypes.object),
+  onCheck: PropTypes.func,
+};
+MainContainer.defaultProps = {
+  counter: {},
+  onCheck: () => {
+  },
+};
 
 export default connect(mapStateToProps, actions)(MainContainer);

@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import PropTipes from 'prop-types';
+import PropTypes from 'prop-types';
 import classes from './filter-list.module.scss';
-
 import * as actions from '../redux/actions';
 
 const FilterList = ({ counter, onCheck }) => {
@@ -22,7 +21,7 @@ const FilterList = ({ counter, onCheck }) => {
             defaultChecked={checkBoxes[10]}
             disabled={!counter.stop}
           />
-          <span className={classes.check__box} />
+          <span className={classes.check__box}/>
           Все
         </label>
       </div>
@@ -36,7 +35,7 @@ const FilterList = ({ counter, onCheck }) => {
             defaultChecked={checkBoxes[0]}
             disabled={!counter.stop}
           />
-          <span className={classes.check__box} />
+          <span className={classes.check__box}/>
           Без пересадок
         </label>
       </div>
@@ -64,7 +63,7 @@ const FilterList = ({ counter, onCheck }) => {
             defaultChecked={checkBoxes[2]}
             disabled={!counter.stop}
           />
-          <span className={classes.check__box} />
+          <span className={classes.check__box}/>
           2 пересадки
         </label>
       </div>
@@ -95,12 +94,13 @@ const mapDispathToProps = (dispatch) => ({
 });
 
 FilterList.propTypes = {
-  counter: PropTipes.arrayOf(PropTipes.object),
-  onCheck: PropTipes.func,
+  counter: PropTypes.arrayOf(PropTypes.object),
+  onCheck: PropTypes.func,
 };
 FilterList.defaultProps = {
   counter: {},
-  onCheck: () => {},
+  onCheck: () => {
+  },
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(FilterList);

@@ -1,14 +1,13 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import cn from 'classnames';
-import classes from './flight.module.scss';
-import globalStyle from '../../assets/global-style/bootstrap.min.css';
-import 'bootstrap/dist/css/bootstrap.css';
-
 import { format } from 'date-fns';
+import cn from 'classnames';
+import 'bootstrap/dist/css/bootstrap.css';
+import PropTypes from 'prop-types';
+import classes from './flight.module.scss';
 
-const Flight = ({ item }) => {
-  const { price, carrier, segments: [one, two] } = item;
+const Flight = ({item}) => {
+  const {price, carrier, segments: [one, two]} = item;
 
   const travelTime = (date) => {
     const dateNew = new Date(0, 0, 0, 0, 0, 0);
@@ -47,7 +46,7 @@ const Flight = ({ item }) => {
       <Row className={classes.row}>
         <Col className={classes.price}>{`${startPrice.concat(` ${finishPrice}`)} P`}</Col>
         <Col className={cn(classes.airline, classes.airline_position)}>
-          <img className={classes.card__poster} src={poster} alt="carrier" />
+          <img className={classes.card__poster} src={poster} alt="carrier"/>
         </Col>
       </Row>
       <Row className={classes.row}>
@@ -81,6 +80,20 @@ const Flight = ({ item }) => {
       </Row>
     </Container>
   );
+};
+
+Flight.propTypes = {
+  item: PropTypes.shape({
+    price: PropTypes.number,
+    carrier: PropTypes.string,
+    segments: PropTypes.arrayOf(PropTypes.object),
+  }),
+};
+Flight.defaultProps = {
+  price: 0,
+  carrier: 'S7',
+  segments: [],
+  item: {},
 };
 
 export default Flight;
