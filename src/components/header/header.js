@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 
-import classes from "./header.scss";
-
+import classes from "./header.module.scss";
+import aviasalesLogo from '../../pictures/aviasales-logo.png'
 
 const Header = () => {
 
   return (
-    <header className="header">
-      <img src="../pictures/aviasales-logo.png" alt="logo-aviasales"/>
+    <header className={classes.header}>
+      <img src={aviasalesLogo} alt="logo-aviasales"/>
     </header>
   );
 }

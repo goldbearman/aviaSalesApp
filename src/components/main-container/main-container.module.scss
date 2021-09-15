@@ -1,5 +1,10 @@
-.container {
+.containerTickets {
   margin-bottom: 50px;
+
+  @media (max-width: 780px) {
+    margin: 0 auto;
+    max-width: 550px;
+  }
 
   .row {
     --bs-gutter-x: 1.2rem;
@@ -8,6 +13,8 @@
   .btnGroup {
     width: 100%;
     margin-bottom: 0 !important;
+    max-width: 550px;
+    //margin: 0 auto !important;
 
     .btn-check:checked + .btn-secondary, .btn-check:active + .btn-secondary, .btn-secondary:active, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle {
       color: #fff;

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Header from "../header/header";
 import FilterList from "../filter-list/filter-list";
 import MainContainer from "../main-container/main-container";
-import { ProgressBar } from 'react-bootstrap';
+import { ProgressBar,Container,Row,Col } from 'react-bootstrap';
 import { connect } from "react-redux";
 import { fetchCustomers } from "../redux/asyncAction";
 import AviasalesService from "../../services/aviasales-service";
@@ -33,17 +33,17 @@ const App = ({counter, onFilter}) => {
   return (
     <div className={cn(classes.airContainer)}>
       <Header className="header"></Header>
-      <div className={cn(globalStyle.container,classes.content)}>
+      <Container className={cn(classes.content)}>
         {!counter.stop && <ProgressBar className={classes.progressBarLocation} animated now={counter.progressBar}/>}
-        <div className={globalStyle.row}>
-          <div className={globalStyle.col4} >
+        <Row >
+          <Col md={4} >
             <FilterList/>
-          </div>
-          <div className={globalStyle.col8} >
+          </Col>
+          <Col md={8} >
             <MainContainer/>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

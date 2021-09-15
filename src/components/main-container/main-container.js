@@ -32,7 +32,7 @@ const MainContainer = ({counter, fiveMoreTickets}) => {
     ) : null;
 
   return (
-    <div className={scss.container}>
+    <div className={scss.containerTickets}>
       <FilterButtons/>
       {onSpinner}
       {onErrorMessage}

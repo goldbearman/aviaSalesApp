@@ -1,10 +1,17 @@
-.filter-list {
+.filter_list {
   background: white;
   color: #4A4A4A;
   padding-bottom: 10px;
   border-radius: 5px;
   font-family: 'OpenSans', sans-serif;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 540px;
+  margin-bottom: 20px;
+
+  @media (max-width: 780px) {
+    margin: 0 auto 20px;
+    max-width: 550px;
+  }
 
   h1 {
     font-size: 12px;
