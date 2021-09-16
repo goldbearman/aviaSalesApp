@@ -8,4 +8,4 @@ export const onCheckBox = (number) => ({ type: ON_CHEKCBOX, number });
 export const checkCheapest = () => ({ type: CLICK_CHEAPEST });
 export const checkFastest = () => ({ type: CLICK_FASTEST });
 export const fiveMoreTickets = () => ({ type: FIVE_MORE_TICKETS });
-export const onInitialState = (allFilms) => ({ type: INITIALSTATE, allFilms });
+export const onInitialState = (allTickets) => ({ type: INITIALSTATE, allTickets });

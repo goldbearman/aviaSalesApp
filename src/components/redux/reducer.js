@@ -10,7 +10,7 @@ const arrChecked = {
     2: true,
     3: true,
   },
-  allFilms: [],
+  allTickets: [],
   filterArr: [],
   numberFlight: 5,
   button: 1,
@@ -37,7 +37,7 @@ const reducer = (state = arrChecked, action) => {
     for (const key in result.checkBoxes) {
       if (result.checkBoxes[key]) {
         // eslint-disable-next-line max-len
-        result.filterArr = result.filterArr.concat(result.allFilms.filter((item) => item.segments[0].stops.length === +key));
+        result.filterArr = result.filterArr.concat(result.allTickets.filter((item) => item.segments[0].stops.length === +key));
         count++;
       }
     }
@@ -60,7 +60,7 @@ const reducer = (state = arrChecked, action) => {
       // eslint-disable-next-line no-unused-expressions
       arr.button === 1 ? sortTemplate(arr.filterArr, 'price') : sortFastest(arr.filterArr);
       // eslint-disable-next-line no-unused-expressions
-    } else arr.button === 1 ? sortTemplate(arr.allFilms, 'price') : sortFastest(arr.allFilms);
+    } else arr.button === 1 ? sortTemplate(arr.allTickets, 'price') : sortFastest(arr.allTickets);
     return arr;
   };
 
@@ -83,9 +83,9 @@ const reducer = (state = arrChecked, action) => {
 
     case INITIALSTATE: {
       // eslint-disable-next-line max-len
-      const newState = { ...state, ...action.allFilms, filterArr: [...state.filterArr, ...action.allFilms.filterArr] };
-      newState.allFilms = newState.filterArr;
-      newState.progressBar = (newState.allFilms.length / 8000) * 100;
+      const newState = { ...state, ...action.allTickets, filterArr: [...state.filterArr, ...action.allTickets.filterArr] };
+      newState.allTickets = newState.filterArr;
+      newState.progressBar = (newState.allTickets.length / 8000) * 100;
       return sortArr(newState);
     }
 

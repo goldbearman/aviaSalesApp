@@ -10,7 +10,7 @@ const getArrTickets = (dispatch, idKey) => {
         getArrTickets(dispatch, idKey);
       }
       dispatch(onInitialState({
-        allFilms: arr.tickets,
+        allTickets: arr.tickets,
         filterArr: arr.tickets,
         error: false,
         loading: true,
@@ -18,7 +18,7 @@ const getArrTickets = (dispatch, idKey) => {
       }));
     })
     .catch(dispatch(onInitialState({
-      allFilms: [], filterArr: [], error: false, loading: false, stop: false,
+      allTickets: [], filterArr: [], error: false, loading: false, stop: false,
     })));
 };
 
@@ -26,6 +26,6 @@ export const fetchCustomers = () => (dispatch) => {
   aviaSalesService.getId().then((idKey) => {
     getArrTickets(dispatch, idKey);
   }).catch(dispatch(onInitialState({
-    allFilms: [], filterArr: [], error: false, loading: false, stop: false,
+    allTickets: [], filterArr: [], error: false, loading: false, stop: false,
   })));
 };
