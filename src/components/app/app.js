@@ -5,23 +5,20 @@ import {
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import PropTipes from 'prop-types';
+import PropTypes from 'prop-types';
 import Header from '../header/header';
 import FilterList from '../filter-list/filter-list';
 import MainContainer from '../main-container/main-container';
 import { fetchCustomers } from '../redux/asyncAction';
-import AviasalesService from '../../services/aviasales-service';
+// import AviasalesService from '../../services/aviasales-service';
 import classes from './app.module.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const App = ({ counter, onFilter }) => {
-  const aviaSalesService = new AviasalesService();
+  // const aviaSalesService = new AviasalesService();
 
   useEffect(() => {
-    aviaSalesService
-      .getId().then((idKey) => {
-        onFilter(idKey);
-      });
+    onFilter();
   }, []);
 
   if (counter.stop) {
@@ -49,21 +46,27 @@ const App = ({ counter, onFilter }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  counter: state,
-});
-
 const mapDispathToProps = (dispatch) => ({
-  onFilter: (idKey) => dispatch(fetchCustomers(idKey)),
+  onFilter: () => dispatch(fetchCustomers()),
 });
 
 App.propTypes = {
-  counter: PropTipes.arrayOf(PropTipes.object),
-  onFilter: PropTipes.func,
+  counter: PropTypes.shape({
+    stop: PropTypes.bool,
+    progressBar: PropTypes.number,
+  }),
+  onFilter: PropTypes.func,
 };
 App.defaultProps = {
-  counter: {},
+  counter: {
+    stop: false,
+    progressBar: 0,
+  },
   onFilter: () => {},
 };
+
+const mapStateToProps = (state) => ({
+  counter: state,
+});
 
 export default connect(mapStateToProps, mapDispathToProps)(App);

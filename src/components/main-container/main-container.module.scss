@@ -16,11 +16,6 @@
     max-width: 550px;
     //margin: 0 auto !important;
 
-    .btn-check:checked + .btn-secondary, .btn-check:active + .btn-secondary, .btn-secondary:active, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle {
-      color: #fff;
-      background: #2b1664;
-      border-color: #1e265e;
-    }
   }
 
   .alertPosition {
@@ -39,7 +34,6 @@
       border-right-color: transparent;
     }
   }
-
 
   .button {
     width: 100%;
@@ -65,7 +59,7 @@
     &:checked {
       border: 1px solid #2196F3;
       outline: none;
-      background-color: #2196F3;
+      background-color: #21f321;
     }
   }
 
@@ -84,7 +78,7 @@
 
   .btnFiveTickets {
     width: 100%;
-    background-color: #2196F3;
+    background-color: #0d6efd;
     color: white;
   }
 
@@ -95,8 +89,4 @@
   }
 }
 
-.btn-check:checked + .btn-secondary, .btn-check:active + .btn-secondary, .btn-secondary:active, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle {
-  color: #fff;
-  background-color: #1f2364;
-  border-color: #1e265e;
-}
+

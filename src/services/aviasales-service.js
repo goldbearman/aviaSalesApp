@@ -1,33 +1,26 @@
 export default class AviasalesService {
-  // _apiBase = "https://front-test.beta.aviasales.ru";
-  _apiBase = 'https://aviasales-test-api.java-mentor.com';
+  apiBase = 'https://aviasales-test-api.java-mentor.com';
 
+  // eslint-disable-next-line consistent-return
   async getResources(url) {
-    // console.log("getResource");
-    const res = await fetch(`${this._apiBase}${url}`);
-    // console.log(res);
+    const res = await fetch(`${this.apiBase}${url}`);
     if (res.ok) {
       // throw new Error("Bad response from server");
-      return await res.json();
+      return res.json();
     }
   }
 
   async getId() {
     const searchIdJson = await this.getResources('/search');
     const { searchId } = searchIdJson;
-    console.log(searchId);
     return searchId;
   }
 
   async getFlights(searchId) {
-    // eslint-disable-next-line no-console
-
-    // console.log(searchIdJson);
-
     const res = await this.getResources(`/tickets?searchId=${searchId}`);
-    console.log(res);
     if (res === undefined) {
       return { tickets: [], stop: false };
-    } return res;
+    }
+    return res;
   }
 }

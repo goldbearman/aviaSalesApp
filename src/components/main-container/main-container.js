@@ -1,16 +1,14 @@
 import React from 'react';
-
 import { Button, Alert, Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import FilterButtons from './filter-buttons';
 import FlightList from '../flight-list/flight-list';
 import scss from './main-container.module.scss';
 import * as actions from '../redux/actions';
 
-const MainContainer = ({counter, fiveMoreTickets}) => {
-  const {loading} = counter;
-  const {error} = counter;
+const MainContainer = ({ counter, fiveMoreTickets }) => {
+  const { loading, error } = counter;
   const isEmptyArr = counter.filterArr.length === 0;
 
   const hasData = !(!loading || error || isEmptyArr);
@@ -30,21 +28,22 @@ const MainContainer = ({counter, fiveMoreTickets}) => {
     </Alert>
   ) : null;
 
-  const onEmptyArr = !Object.values(counter.checkBoxes).some((item) => item) && loading && !error ? (
+  const onEmptyArr = !Object.values(counter.checkBoxes).some((item) => item)
+  && loading && !error ? (
     <Alert className={scss.alertPosition} variant="primary">
       Рейсов, подходящих под заданные фильтры, не найдено!
     </Alert>
-  ) : null;
+    ) : null;
 
   return (
     <div className={scss.containerTickets}>
-      <FilterButtons/>
+      <FilterButtons />
       {onSpinner}
       {onErrorMessage}
       {onEmptyArr}
       {hasData ? (
         <div>
-          <FlightList/>
+          <FlightList />
           <Button className={`${scss.btn} ${scss.btnFiveTickets}`} onClick={fiveMoreTickets} size="lg">
             Показать еще 5
             билетов!
@@ -60,12 +59,21 @@ const mapStateToProps = (state) => ({
 });
 
 MainContainer.propTypes = {
-  counter: PropTypes.arrayOf(PropTypes.object),
-  onCheck: PropTypes.func,
+  counter: PropTypes.shape({
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    checkBoxes: PropTypes.objectOf(PropTypes.bool),
+    filterArr: PropTypes.arrayOf(PropTypes.object),
+  }),
+  fiveMoreTickets: PropTypes.func,
 };
+
 MainContainer.defaultProps = {
-  counter: {},
-  onCheck: () => {
+  counter: {
+    loading: false,
+    error: false,
+  },
+  fiveMoreTickets: () => {
   },
 };
 

@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import scss from './main-container.module.scss';
-
 import * as actions from '../redux/actions';
-import { fetchCustomers } from '../redux/asyncAction';
 
 function FilterButtons({ checkCheapest, checkFastest }) {
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
 
   const radios = [
@@ -23,13 +21,12 @@ function FilterButtons({ checkCheapest, checkFastest }) {
         {radios.map((radio, idx) => (
           <ToggleButton
             onClick={radio.value === '1' ? () => checkCheapest() : () => checkFastest()}
-            // onClick={radio.value === '1' ? ()=> console.log("111") : ()=> console.log("222") }
-            // onClick={console.log(radio.value)}
             className={`${scss.btn} ${scss.btnBlueColor}`}
+            /* eslint-disable-next-line react/no-array-index-key */
             key={idx}
             id={`radio-${idx}`}
             type="radio"
-            variant="secondary"
+            variant="outline-primary"
             name="radio"
             value={radio.value}
             checked={radioValue === radio.value}
@@ -46,5 +43,16 @@ function FilterButtons({ checkCheapest, checkFastest }) {
 const mapStateToProps = (state) => ({
   counter: state,
 });
+
+FilterButtons.propTypes = {
+  checkCheapest: PropTypes.func,
+  checkFastest: PropTypes.func,
+};
+FilterButtons.defaultProps = {
+  checkCheapest: () => {
+  },
+  checkFastest: () => {
+  },
+};
 
 export default connect(mapStateToProps, actions)(FilterButtons);

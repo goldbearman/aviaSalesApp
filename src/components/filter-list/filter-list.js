@@ -18,10 +18,9 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[10]}
             onChange={() => onCheck(10)}
-            defaultChecked={checkBoxes[10]}
             disabled={!counter.stop}
           />
-          <span className={classes.check__box}/>
+          <span className={classes.check__box} />
           Все
         </label>
       </div>
@@ -32,10 +31,9 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[0]}
             onChange={() => onCheck(0)}
-            defaultChecked={checkBoxes[0]}
             disabled={!counter.stop}
           />
-          <span className={classes.check__box}/>
+          <span className={classes.check__box} />
           Без пересадок
         </label>
       </div>
@@ -46,7 +44,6 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[1]}
             onChange={() => onCheck(1)}
-            defaultChecked={checkBoxes[1]}
             disabled={!counter.stop}
           />
           <span className={classes.check__box} />
@@ -60,10 +57,9 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[2]}
             onChange={() => onCheck(2)}
-            defaultChecked={checkBoxes[2]}
             disabled={!counter.stop}
           />
-          <span className={classes.check__box}/>
+          <span className={classes.check__box} />
           2 пересадки
         </label>
       </div>
@@ -74,7 +70,6 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[3]}
             onChange={() => onCheck(3)}
-            defaultChecked={checkBoxes[3]}
             disabled={!counter.stop}
           />
           <span className={classes.check__box} />
@@ -85,6 +80,21 @@ const FilterList = ({ counter, onCheck }) => {
   );
 };
 
+FilterList.propTypes = {
+  counter: PropTypes.shape({
+    stop: PropTypes.bool,
+    checkBoxes: PropTypes.objectOf(PropTypes.bool),
+  }),
+  onCheck: PropTypes.func,
+};
+FilterList.defaultProps = {
+  counter: {
+    stop: false,
+    checkBoxes: {},
+  },
+  onCheck: () => {},
+};
+
 const mapStateToProps = (state) => ({
   counter: state,
 });
@@ -92,15 +102,5 @@ const mapStateToProps = (state) => ({
 const mapDispathToProps = (dispatch) => ({
   onCheck: (idKey) => dispatch(actions.onCheckBox(idKey)),
 });
-
-FilterList.propTypes = {
-  counter: PropTypes.arrayOf(PropTypes.object),
-  onCheck: PropTypes.func,
-};
-FilterList.defaultProps = {
-  counter: {},
-  onCheck: () => {
-  },
-};
 
 export default connect(mapStateToProps, mapDispathToProps)(FilterList);

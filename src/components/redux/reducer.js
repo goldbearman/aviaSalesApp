@@ -21,54 +21,29 @@ const arrChecked = {
 };
 
 const reducer = (state = arrChecked, action) => {
-  const arrAllFalse = {
-    10: false,
-    0: false,
-    1: false,
-    2: false,
-    3: false,
-  };
-
-  const arrAllTrue = {
-    10: true,
-    0: true,
-    1: true,
-    2: true,
-    3: true,
-  };
-
-  const checkState = (element, prevState) => {
-    let newState = { ...prevState };
-    newState.filterArr = [];
-
-    newState.checkBoxes[element] = !newState.checkBoxes[element];
-    if (element === 10 && newState.checkBoxes[element]) {
-      newState.checkBoxes = arrAllTrue;
+  const setArrTrueFalse = (boolean, obj) => {
+    // eslint-disable-next-line guard-for-in,no-restricted-syntax
+    for (const key in obj) {
+      // eslint-disable-next-line no-param-reassign
+      obj[key] = boolean;
     }
-    if (element === 10 && !newState.checkBoxes[element]) {
-      newState.checkBoxes = arrAllFalse;
-    }
-    if (!newState.checkBoxes[element] && element !== 10) newState.checkBoxes[10] = false;
-    newState = fillFilterArr(newState);
-    return sortArr(newState);
+    return obj;
   };
 
   const fillFilterArr = (newState) => {
     let count = 0;
-    for (const key in newState.checkBoxes) {
-      if (newState.checkBoxes[key]) {
-        console.log(key);
-
-        newState.filterArr = newState.filterArr.concat(newState.allFilms.filter((item) =>
-          // console.log(item.segments[0].stops.length);
-          item.segments[0].stops.length === +key));
-        console.log(newState.filterArr);
+    const result = { ...newState };
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in result.checkBoxes) {
+      if (result.checkBoxes[key]) {
+        // eslint-disable-next-line max-len
+        result.filterArr = result.filterArr.concat(result.allFilms.filter((item) => item.segments[0].stops.length === +key));
         count++;
       }
     }
-    if (count === 4) newState.checkBoxes[10] = true;
-    newState.loading = true;
-    return newState;
+    if (count === 4) result.checkBoxes[10] = true;
+    result.loading = true;
+    return result;
   };
 
   const sortTemplate = (arr, parameter1) => {
@@ -82,34 +57,53 @@ const reducer = (state = arrChecked, action) => {
 
   const sortArr = (arr) => {
     if (arr.filterArr.length > 0) {
+      // eslint-disable-next-line no-unused-expressions
       arr.button === 1 ? sortTemplate(arr.filterArr, 'price') : sortFastest(arr.filterArr);
+      // eslint-disable-next-line no-unused-expressions
     } else arr.button === 1 ? sortTemplate(arr.allFilms, 'price') : sortFastest(arr.allFilms);
     return arr;
   };
 
+  const checkState = (element, prevState) => {
+    let newState = { ...prevState };
+    newState.filterArr = [];
+
+    newState.checkBoxes[element] = !newState.checkBoxes[element];
+    if (element === 10) {
+      newState.checkBoxes = setArrTrueFalse(newState.checkBoxes[element], newState.checkBoxes);
+    }
+    if (!newState.checkBoxes[element] && element !== 10) newState.checkBoxes[10] = false;
+    newState = fillFilterArr(newState);
+    return sortArr(newState);
+  };
+
   switch (action.type) {
     case ON_CHEKCBOX:
-      console.log('ON_CHEKCBOX');
       return checkState(action.number, state);
 
-    case INITIALSTATE:
+    case INITIALSTATE: {
+      // eslint-disable-next-line max-len
       const newState = { ...state, ...action.allFilms, filterArr: [...state.filterArr, ...action.allFilms.filterArr] };
       newState.allFilms = newState.filterArr;
       newState.progressBar = (newState.allFilms.length / 8000) * 100;
       return sortArr(newState);
+    }
 
-    case CLICK_CHEAPEST:
+    case CLICK_CHEAPEST: {
       const newStateSheap = { ...state, button: 1 };
       return sortArr(newStateSheap);
+    }
 
-    case CLICK_FASTEST:
+    case CLICK_FASTEST: {
       const newStateFast = { ...state, button: 2 };
       return sortArr(newStateFast);
+    }
 
-    case FIVE_MORE_TICKETS:
+    case FIVE_MORE_TICKETS: {
       const newStateFiveMoreTickets = { ...state };
       newStateFiveMoreTickets.numberFlight += 5;
-      return newStateFiveMoreTickets;
+      return (newStateFiveMoreTickets);
+    }
 
     default:
       return state;

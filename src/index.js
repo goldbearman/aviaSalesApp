@@ -13,11 +13,10 @@ const composeEnhancers = typeof window === 'object'
     // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
   }) : compose;
 
-const loggerMiddleware = (store) => (next) => (action) => {
-  const result = next(action);
-  console.log('Midl', store.getState());
-  return result;
-};
+// const loggerMiddleware = (store) => (next) => (action) => {
+//   const result = next(action);
+//   return result;
+// };
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(reduxThunk)));
 

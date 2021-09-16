@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Flight from '../flight/flight';
 import * as actions from '../redux/actions';
@@ -18,6 +19,21 @@ const FlightList = ({ counter }) => {
   return (
     createList()
   );
+};
+
+FlightList.propTypes = {
+  counter: PropTypes.shape({
+    filterArr: PropTypes.arrayOf(PropTypes.object),
+    numberFlight: PropTypes.number,
+  }),
+  onFilter: PropTypes.func,
+};
+FlightList.defaultProps = {
+  counter: {
+    filterArr: [],
+    numberFlight: 5,
+  },
+  onFilter: () => {},
 };
 
 const mapStateToProps = (state) => ({
