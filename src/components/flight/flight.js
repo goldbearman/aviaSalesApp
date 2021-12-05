@@ -1,9 +1,12 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import { format } from 'date-fns';
+// OTHER LIBRARIES
 import cn from 'classnames';
-import 'bootstrap/dist/css/bootstrap.css';
+import { format } from 'date-fns';
 import PropTypes from 'prop-types';
+// REACT-BOOTSTRAP
+import { Col, Container, Row } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+
 import classes from './flight.module.scss';
 
 const Flight = ({ item }) => {
@@ -31,9 +34,7 @@ const Flight = ({ item }) => {
   };
 
   let poster;
-  // eslint-disable-next-line camelcase
   if (carrier) {
-    // eslint-disable-next-line camelcase
     poster = `https://pics.avs.io/99/36/${carrier}.png`;
   }
 

@@ -1,8 +1,11 @@
 import React from 'react';
+// OTHER LIBRARIES
 import PropTypes from 'prop-types';
+// REDUX
 import { connect } from 'react-redux';
+import * as actions from '../../redux/actions';
+// CUSTOM COMPONENTS
 import Flight from '../flight/flight';
-import * as actions from '../redux/actions';
 
 const FlightList = ({ counter }) => {
   let key = 100;

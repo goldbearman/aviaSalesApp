@@ -21,6 +21,8 @@ module.exports = {
     'react',
   ],
   rules: {
+    "no-param-reassign": 0,
+    "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"],
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-plusplus": "off",

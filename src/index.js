@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
-import reducer from './components/redux/reducer';
+import reducer from './redux/reducer';
 import App from './components/app/app';
 
 const composeEnhancers = typeof window === 'object'

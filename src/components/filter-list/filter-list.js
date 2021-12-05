@@ -1,9 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// OTHER LIBRARIES
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+// REDUX
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions';
+
 import classes from './filter-list.module.scss';
-import * as actions from '../redux/actions';
 
 const FilterList = ({ counter, onCheck }) => {
   const { checkBoxes } = counter;

@@ -22,22 +22,24 @@ const arrChecked = {
 
 const reducer = (state = arrChecked, action) => {
   const setArrTrueFalse = (boolean, obj) => {
-    // eslint-disable-next-line guard-for-in,no-restricted-syntax
-    for (const key in obj) {
-      // eslint-disable-next-line no-param-reassign
-      obj[key] = boolean;
-    }
-    return obj;
+    const newObj = { ...obj };
+    Object.keys(obj).forEach((key) => { obj[key] = boolean; });
+    // for (const key in newObj) {
+    //   if (Object.prototype.hasOwnProperty.call(newObj, key)) {
+    //     newObj[key] = boolean;
+    //   }
+    // }
+    return newObj;
   };
 
   const fillFilterArr = (newState) => {
     let count = 0;
     const result = { ...newState };
-    // eslint-disable-next-line no-restricted-syntax
     for (const key in result.checkBoxes) {
       if (result.checkBoxes[key]) {
-        // eslint-disable-next-line max-len
-        result.filterArr = result.filterArr.concat(result.allTickets.filter((item) => item.segments[0].stops.length === +key));
+        result.filterArr = result.filterArr.concat(
+          result.allTickets.filter((item) => item.segments[0].stops.length === +key),
+        );
         count++;
       }
     }
@@ -83,7 +85,11 @@ const reducer = (state = arrChecked, action) => {
 
     case INITIALSTATE: {
       // eslint-disable-next-line max-len
-      const newState = { ...state, ...action.allTickets, filterArr: [...state.filterArr, ...action.allTickets.filterArr] };
+      const newState = {
+        ...state,
+        ...action.allTickets,
+        filterArr: [...state.filterArr, ...action.allTickets.filterArr],
+      };
       newState.allTickets = newState.filterArr;
       newState.progressBar = (newState.allTickets.length / 8000) * 100;
       return sortArr(newState);

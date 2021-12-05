@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { ButtonGroup, ToggleButton } from 'react-bootstrap';
+// OTHER LIBRARIES
 import PropTypes from 'prop-types';
+// REACT-BOOTSTRAP
+import { ButtonGroup, ToggleButton } from 'react-bootstrap';
+// REDUX
 import { connect } from 'react-redux';
+import * as actions from '../../redux/actions';
+
 import scss from './main-container.module.scss';
-import * as actions from '../redux/actions';
 
 function FilterButtons({ checkCheapest, checkFastest }) {
-  // const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
 
   const radios = [
-    { name: 'САМЫЙ ДЕШЁВЫЙ', value: '1' },
-    { name: 'САМЫЙ БЫСТРЫЙ', value: '2' },
-    // {name: 'ОПТИМАЛЬНЫЙ', value: '3'},
+    { id: 100, name: 'САМЫЙ ДЕШЁВЫЙ', value: '1' },
+    { id: 101, name: 'САМЫЙ БЫСТРЫЙ', value: '2' },
   ];
 
   return (
@@ -22,8 +24,7 @@ function FilterButtons({ checkCheapest, checkFastest }) {
           <ToggleButton
             onClick={radio.value === '1' ? () => checkCheapest() : () => checkFastest()}
             className={`${scss.btn} ${scss.btnBlueColor}`}
-            /* eslint-disable-next-line react/no-array-index-key */
-            key={idx}
+            key={radio.id}
             id={`radio-${idx}`}
             type="radio"
             variant="outline-primary"

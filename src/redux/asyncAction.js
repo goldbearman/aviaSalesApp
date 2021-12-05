@@ -1,4 +1,4 @@
-import AviasalesService from '../../services/aviasales-service';
+import AviasalesService from '../services/aviasales-service';
 import { onInitialState } from './actions';
 
 const aviaSalesService = new AviasalesService();

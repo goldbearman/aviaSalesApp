@@ -1,7 +1,7 @@
 export default class AviasalesService {
   apiBase = 'https://aviasales-test-api.java-mentor.com';
 
-  // eslint-disable-next-line consistent-return
+  // eslint-disable-next-line consistent-return,no-restricted-syntax
   async getResources(url) {
     const res = await fetch(`${this.apiBase}${url}`);
     if (res.ok) {

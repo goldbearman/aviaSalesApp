@@ -1,11 +1,16 @@
 import React from 'react';
-import { Button, Alert, Spinner } from 'react-bootstrap';
-import { connect } from 'react-redux';
+// OTHER LIBRARIES
 import PropTypes from 'prop-types';
+// REACT-BOOTSTRAP
+import { Button, Alert, Spinner } from 'react-bootstrap';
+// REDUX
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions';
+// CUSTOM COMPONENTS
 import FilterButtons from './filter-buttons';
 import FlightList from '../flight-list/flight-list';
+
 import scss from './main-container.module.scss';
-import * as actions from '../redux/actions';
 
 const MainContainer = ({ counter, fiveMoreTickets }) => {
   const { loading, error } = counter;
