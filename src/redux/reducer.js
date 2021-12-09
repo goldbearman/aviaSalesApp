@@ -23,26 +23,21 @@ const arrChecked = {
 const reducer = (state = arrChecked, action) => {
   const setArrTrueFalse = (boolean, obj) => {
     const newObj = { ...obj };
-    Object.keys(obj).forEach((key) => { obj[key] = boolean; });
-    // for (const key in newObj) {
-    //   if (Object.prototype.hasOwnProperty.call(newObj, key)) {
-    //     newObj[key] = boolean;
-    //   }
-    // }
+    Object.keys(newObj).forEach((key) => { newObj[key] = boolean; });
     return newObj;
   };
 
   const fillFilterArr = (newState) => {
     let count = 0;
     const result = { ...newState };
-    for (const key in result.checkBoxes) {
+    Object.keys(result.checkBoxes).forEach((key) => {
       if (result.checkBoxes[key]) {
         result.filterArr = result.filterArr.concat(
           result.allTickets.filter((item) => item.segments[0].stops.length === +key),
         );
         count++;
       }
-    }
+    });
     if (count === 4) result.checkBoxes[10] = true;
     result.loading = true;
     return result;
@@ -59,10 +54,9 @@ const reducer = (state = arrChecked, action) => {
 
   const sortArr = (arr) => {
     if (arr.filterArr.length > 0) {
-      // eslint-disable-next-line no-unused-expressions
-      arr.button === 1 ? sortTemplate(arr.filterArr, 'price') : sortFastest(arr.filterArr);
-      // eslint-disable-next-line no-unused-expressions
-    } else arr.button === 1 ? sortTemplate(arr.allTickets, 'price') : sortFastest(arr.allTickets);
+      if (arr.button === 1) sortTemplate(arr.filterArr, 'price');
+      else sortFastest(arr.filterArr);
+    } else if (arr.button === 1) { sortTemplate(arr.allTickets, 'price'); } else sortFastest(arr.allTickets);
     return arr;
   };
 
@@ -84,7 +78,6 @@ const reducer = (state = arrChecked, action) => {
       return checkState(action.number, state);
 
     case INITIALSTATE: {
-      // eslint-disable-next-line max-len
       const newState = {
         ...state,
         ...action.allTickets,
