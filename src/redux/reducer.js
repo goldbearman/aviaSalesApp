@@ -23,9 +23,7 @@ const arrChecked = {
 const reducer = (state = arrChecked, action) => {
   const setArrTrueFalse = (boolean, obj) => {
     const newObj = { ...obj };
-    Object.keys(newObj).forEach((key) => {
-      newObj[key] = boolean;
-    });
+    Object.keys(newObj).forEach((key) => { newObj[key] = boolean; });
     return newObj;
   };
 
@@ -86,7 +84,7 @@ const reducer = (state = arrChecked, action) => {
         filterArr: [...state.filterArr, ...action.allTickets.filterArr],
       };
       newState.allTickets = newState.filterArr;
-      newState.progressBar = (newState.allTickets.length / 10000) * 100;
+      newState.progressBar = (newState.allTickets.length / 8000) * 100;
       return sortArr(newState);
     }
 
