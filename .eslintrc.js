@@ -2,13 +2,13 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
     'plugin:react/recommended',
     'airbnb',
   ],
-  parser: "babel-eslint",
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
 
@@ -21,17 +21,18 @@ module.exports = {
     'react',
   ],
   rules: {
-    "no-param-reassign": 0,
-    "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"],
-    "import/prefer-default-export": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-plusplus": "off",
-    "no-console": "error",
-    "jsx-a11y/label-has-associated-control": [ 2, {
-      "labelComponents": ["CustomInputLabel"],
-      "labelAttributes": ["label"],
-      "controlComponents": ["CustomInput"],
-      "depth": 3,
+    'linebreak-style': ['error', 'windows'],
+    'no-restricted-syntax': ['error', 'ForInStatement', 'LabeledStatement', 'WithStatement'],
+    'no-param-reassign': 0,
+    'import/prefer-default-export': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'no-plusplus': 'off',
+    'no-console': 'error',
+    'jsx-a11y/label-has-associated-control': [2, {
+      labelComponents: ['CustomInputLabel'],
+      labelAttributes: ['label'],
+      controlComponents: ['CustomInput'],
+      depth: 3,
     }],
   },
 };

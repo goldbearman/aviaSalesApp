@@ -7,10 +7,11 @@ import * as actions from '../../redux/actions';
 // CUSTOM COMPONENTS
 import Flight from '../flight/flight';
 
-const FlightList = ({ counter }) => {
+const FlightList = ({ counter: { filterArr, numberFlight } }) => {
   let key = 100;
+
   const createList = () => {
-    const elements = counter.filterArr.slice(0, counter.numberFlight).map((ticket) => (
+    const elements = filterArr.slice(0, numberFlight).map((ticket) => (
       <Flight
         item={ticket}
         key={key++}

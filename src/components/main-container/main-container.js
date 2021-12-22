@@ -13,8 +13,10 @@ import FlightList from '../flight-list/flight-list';
 import scss from './main-container.module.scss';
 
 const MainContainer = ({ counter, fiveMoreTickets }) => {
-  const { loading, error } = counter;
-  const isEmptyArr = counter.filterArr.length === 0;
+  const {
+    loading, error, filterArr, checkBoxes,
+  } = counter;
+  const isEmptyArr = filterArr.length === 0;
 
   const hasData = !(!loading || error || isEmptyArr);
   const onSpinner = !loading
@@ -33,7 +35,7 @@ const MainContainer = ({ counter, fiveMoreTickets }) => {
     </Alert>
   ) : null;
 
-  const onEmptyArr = !Object.values(counter.checkBoxes).some((item) => item)
+  const onEmptyArr = !Object.values(checkBoxes).some((item) => item)
   && loading && !error ? (
     <Alert className={scss.alertPosition} variant="primary">
       Рейсов, подходящих под заданные фильтры, не найдено!

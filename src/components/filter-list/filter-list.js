@@ -9,7 +9,7 @@ import * as actions from '../../redux/actions';
 import classes from './filter-list.module.scss';
 
 const FilterList = ({ counter, onCheck }) => {
-  const { checkBoxes } = counter;
+  const { checkBoxes, stop } = counter;
 
   return (
     <div className={classes.filter_list}>
@@ -21,7 +21,7 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[10]}
             onChange={() => onCheck(10)}
-            disabled={!counter.stop}
+            disabled={!stop}
           />
           <span className={classes.check__box} />
           Все
@@ -34,7 +34,7 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[0]}
             onChange={() => onCheck(0)}
-            disabled={!counter.stop}
+            disabled={!stop}
           />
           <span className={classes.check__box} />
           Без пересадок
@@ -47,7 +47,7 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[1]}
             onChange={() => onCheck(1)}
-            disabled={!counter.stop}
+            disabled={!stop}
           />
           <span className={classes.check__box} />
           1 пересадка
@@ -60,7 +60,7 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[2]}
             onChange={() => onCheck(2)}
-            disabled={!counter.stop}
+            disabled={!stop}
           />
           <span className={classes.check__box} />
           2 пересадки
@@ -73,7 +73,7 @@ const FilterList = ({ counter, onCheck }) => {
             type="checkbox"
             checked={checkBoxes[3]}
             onChange={() => onCheck(3)}
-            disabled={!counter.stop}
+            disabled={!stop}
           />
           <span className={classes.check__box} />
           3 пересадки

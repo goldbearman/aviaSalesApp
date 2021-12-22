@@ -17,27 +17,22 @@ import MainContainer from '../main-container/main-container';
 
 import classes from './app.module.scss';
 
-const App = ({ counter, onFilter }) => {
+const App = ({ counter: { stop, progressBar }, onFilter }) => {
   useEffect(() => {
     onFilter();
   }, []);
-
-  if (counter.stop) {
-    const arr = counter;
-    arr.progressBar = 100;
-  }
 
   return (
     <div className={cn(classes.airContainer)}>
       <Header className="header" />
       <Container className={cn(classes.content)}>
-        {!counter.stop
+        {!stop
         && (
-        <ProgressBar
-          className={classes.progressBarLocation}
-          animated
-          now={counter.progressBar}
-        />
+          <ProgressBar
+            className={classes.progressBarLocation}
+            animated
+            now={stop ? 100 : progressBar}
+          />
         )}
         <Row>
           <Col md={4}>
@@ -68,7 +63,8 @@ App.defaultProps = {
     stop: false,
     progressBar: 0,
   },
-  onFilter: () => {},
+  onFilter: () => {
+  },
 };
 
 const mapStateToProps = (state) => ({
