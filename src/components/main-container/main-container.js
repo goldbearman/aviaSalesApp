@@ -14,9 +14,9 @@ import scss from './main-container.module.scss';
 
 const MainContainer = ({ counter, fiveMoreTickets }) => {
   const {
-    loading, error, filterArr, checkBoxes,
+    loading, error, allTickets, checkBoxes,
   } = counter;
-  const isEmptyArr = filterArr.length === 0;
+  const isEmptyArr = allTickets.length === 0;
 
   const hasData = !(!loading || error || isEmptyArr);
   const onSpinner = !loading
@@ -51,10 +51,12 @@ const MainContainer = ({ counter, fiveMoreTickets }) => {
       {hasData ? (
         <div>
           <FlightList />
-          <Button className={`${scss.btn} ${scss.btnFiveTickets}`} onClick={fiveMoreTickets} size="lg">
-            Показать еще 5
-            билетов!
-          </Button>
+          { !onEmptyArr
+            && (
+            <Button className={`${scss.btn} ${scss.btnFiveTickets}`} onClick={fiveMoreTickets} size="lg">
+              Показать еще 5 билетов!
+            </Button>
+            )}
         </div>
       ) : null}
     </div>
@@ -70,7 +72,7 @@ MainContainer.propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     checkBoxes: PropTypes.objectOf(PropTypes.bool),
-    filterArr: PropTypes.arrayOf(PropTypes.object),
+    allTickets: PropTypes.arrayOf(PropTypes.object),
   }),
   fiveMoreTickets: PropTypes.func,
 };

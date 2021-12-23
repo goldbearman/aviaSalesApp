@@ -4,14 +4,13 @@ import {
 
 const arrChecked = {
   checkBoxes: {
-    10: true,
-    0: true,
-    1: true,
-    2: true,
-    3: true,
+    Все: true,
+    'Без пересадок': true,
+    '1 пересадка': true,
+    '2 пересадки': true,
+    '3 пересадки': true,
   },
   allTickets: [],
-  filterArr: [],
   numberFlight: 5,
   button: 1,
   error: false,
@@ -20,59 +19,29 @@ const arrChecked = {
   progressBar: 0,
 };
 
+const setArrTrueFalse = (boolean, obj) => {
+  const newObj = { ...obj };
+  Object.keys(newObj).forEach((key) => { newObj[key] = boolean; });
+  return newObj;
+};
+
+const checkState = (element, prevState) => {
+  const newState = { ...prevState };
+
+  newState.checkBoxes[element] = !newState.checkBoxes[element];
+  if (element === 'Все') {
+    newState.checkBoxes = setArrTrueFalse(newState.checkBoxes[element], newState.checkBoxes);
+  }
+  if (!newState.checkBoxes[element] && element !== 'Все') newState.checkBoxes['Все'] = false;
+  let count = 0;
+  Object.values(newState.checkBoxes).forEach((value) => {
+    if (value) count++;
+  });
+  if (count === 4) newState.checkBoxes['Все'] = true;
+  return newState;
+};
+
 const reducer = (state = arrChecked, action) => {
-  const setArrTrueFalse = (boolean, obj) => {
-    const newObj = { ...obj };
-    Object.keys(newObj).forEach((key) => { newObj[key] = boolean; });
-    return newObj;
-  };
-
-  const fillFilterArr = (newState) => {
-    let count = 0;
-    const result = { ...newState };
-    Object.keys(result.checkBoxes).forEach((key) => {
-      if (result.checkBoxes[key]) {
-        result.filterArr = result.filterArr.concat(
-          result.allTickets.filter((item) => item.segments[0].stops.length === +key),
-        );
-        count++;
-      }
-    });
-    if (count === 4) result.checkBoxes[10] = true;
-    result.loading = true;
-    return result;
-  };
-
-  const sortTemplate = (arr, parameter1) => {
-    arr.sort((a, b) => a[parameter1] - b[parameter1]);
-    return arr;
-  };
-
-  const sortFastest = (arr) => {
-    arr.sort((a, b) => a.segments[0].duration - b.segments[0].duration);
-  };
-
-  const sortArr = (arr) => {
-    if (arr.filterArr.length > 0) {
-      if (arr.button === 1) sortTemplate(arr.filterArr, 'price');
-      else sortFastest(arr.filterArr);
-    } else if (arr.button === 1) { sortTemplate(arr.allTickets, 'price'); } else sortFastest(arr.allTickets);
-    return arr;
-  };
-
-  const checkState = (element, prevState) => {
-    let newState = { ...prevState };
-    newState.filterArr = [];
-
-    newState.checkBoxes[element] = !newState.checkBoxes[element];
-    if (element === 10) {
-      newState.checkBoxes = setArrTrueFalse(newState.checkBoxes[element], newState.checkBoxes);
-    }
-    if (!newState.checkBoxes[element] && element !== 10) newState.checkBoxes[10] = false;
-    newState = fillFilterArr(newState);
-    return sortArr(newState);
-  };
-
   switch (action.type) {
     case ON_CHEKCBOX:
       return checkState(action.number, state);
@@ -80,22 +49,19 @@ const reducer = (state = arrChecked, action) => {
     case INITIALSTATE: {
       const newState = {
         ...state,
-        ...action.allTickets,
-        filterArr: [...state.filterArr, ...action.allTickets.filterArr],
+        ...action.allTicketsObj,
+        allTickets: [...state.allTickets, ...action.allTicketsObj.allTickets],
       };
-      newState.allTickets = newState.filterArr;
-      newState.progressBar = (newState.allTickets.length / 8000) * 100;
-      return sortArr(newState);
+      newState.progressBar = (newState.allTickets.length / 8500) * 100;
+      return newState;
     }
 
     case CLICK_CHEAPEST: {
-      const newStateSheap = { ...state, button: 1 };
-      return sortArr(newStateSheap);
+      return { ...state, button: 1 };
     }
 
     case CLICK_FASTEST: {
-      const newStateFast = { ...state, button: 2 };
-      return sortArr(newStateFast);
+      return { ...state, button: 2 };
     }
 
     case FIVE_MORE_TICKETS: {

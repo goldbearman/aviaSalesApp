@@ -61,7 +61,7 @@ const Flight = ({ item }) => {
         </Col>
         <Col className={classes.travel_time}>
           <div>{transfer[one.stops.length]}</div>
-          <div className={classes.information}>{one.stops.join(',')}</div>
+          <div className={cn(classes.airports, classes.information)}>{one.stops.join(',')}</div>
         </Col>
       </Row>
 
@@ -76,7 +76,7 @@ const Flight = ({ item }) => {
         </Col>
         <Col className={classes.travel_time}>
           <div>{transfer[two.stops.length]}</div>
-          <div className={classes.information}>{two.stops.join(',')}</div>
+          <div className={cn(classes.airports, classes.information)}>{two.stops.join(',')}</div>
         </Col>
       </Row>
     </Container>

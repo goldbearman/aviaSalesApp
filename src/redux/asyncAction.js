@@ -11,7 +11,6 @@ const getArrTickets = (dispatch, idKey) => {
       }
       dispatch(onInitialState({
         allTickets: arr.tickets,
-        filterArr: arr.tickets,
         error: false,
         loading: true,
         stop: arr.stop,
