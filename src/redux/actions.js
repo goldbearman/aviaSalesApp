@@ -1,3 +1,4 @@
+
 export const ON_CHEKCBOX = 'ON_CHEKCBOX';
 export const INITIALSTATE = 'INITIALSTATE';
 export const CLICK_CHEAPEST = 'CLICKCHEAPEST';
