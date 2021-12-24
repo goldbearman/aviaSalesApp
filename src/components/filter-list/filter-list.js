@@ -10,7 +10,7 @@ import classes from './filter-list.module.scss';
 
 const FilterList = ({ counter: { checkBoxes, stop }, onCheck }) => {
   const checkBoxArr = Object.keys(checkBoxes).map((key) => (
-    <div className={classes.filter_list__item}>
+    <div key={key} className={classes.filter_list__item}>
       <label className={cn(classes.check, classes.option)}>
         <input
           className={classes.check__input}
